@@ -9,13 +9,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --blue: #0076C0;
-      --blue-light: #29aae2;
-      --bg: #0d0d0d;
-      --bg-card: #141414;
-      --text: #f0f0f0;
-      --muted: #888;
-      --border: #242424;
+      --red: #E6332A;
+      --red-light: #FF5252;
+      --bg: #0C0C0C;
+      --bg-card: #161616;
+      --text: #F2F2F2;
+      --muted: #777;
+      --border: #262626;
     }
 
     html { scroll-behavior: smooth; }
@@ -27,13 +27,13 @@
       line-height: 1.7;
     }
 
-    a { color: var(--blue-light); text-decoration: none; }
+    a { color: var(--red-light); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
     /* ── Nav ── */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(13,13,13,0.88);
+      background: rgba(12,12,12,0.92);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
@@ -42,7 +42,7 @@
       height: 60px; display: flex; align-items: center; justify-content: space-between;
     }
     .nav-logo { font-size: 1.2rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; text-decoration: none; }
-    .nav-logo span { color: var(--blue-light); }
+    .nav-logo span { color: var(--red-light); }
     .nav-back { font-size: 0.88rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
     .nav-back:hover { color: var(--text); text-decoration: none; }
 
@@ -55,9 +55,9 @@
     .page-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
     .page-header .app-tag {
       display: inline-block;
-      background: rgba(0,118,192,0.12);
-      border: 1px solid rgba(41,170,226,0.25);
-      color: var(--blue-light);
+      background: rgba(230,51,42,0.10);
+      border: 1px solid rgba(255,82,82,0.28);
+      color: var(--red-light);
       font-size: 0.72rem; font-weight: 600;
       letter-spacing: 0.1em; text-transform: uppercase;
       padding: 4px 12px; border-radius: 100px; margin-bottom: 16px;
@@ -66,8 +66,8 @@
     .page-header .updated { font-size: 0.83rem; color: var(--muted); }
 
     .summary-card {
-      background: rgba(0,118,192,0.08);
-      border: 1px solid rgba(41,170,226,0.2);
+      background: rgba(230,51,42,0.07);
+      border: 1px solid rgba(255,82,82,0.2);
       border-radius: 12px;
       padding: 20px 24px;
       margin-bottom: 40px;
@@ -78,7 +78,7 @@
 
     h2 {
       font-size: 1rem; font-weight: 700;
-      color: var(--blue-light);
+      color: var(--red-light);
       margin: 40px 0 12px;
       padding-bottom: 8px;
       border-bottom: 1px solid var(--border);
@@ -91,7 +91,7 @@
 
     ul { margin: 8px 0 14px 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
     ul li { font-size: 0.93rem; color: #bbb; padding-left: 18px; position: relative; }
-    ul li::before { content: '·'; position: absolute; left: 4px; color: var(--blue-light); font-size: 1.2rem; line-height: 1; top: 0px; }
+    ul li::before { content: '·'; position: absolute; left: 4px; color: var(--red-light); font-size: 1.2rem; line-height: 1; top: 0px; }
 
     strong { color: var(--text); }
 
