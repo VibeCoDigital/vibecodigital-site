@@ -1,403 +1,574 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VibeCo Digital — Apps Built for Real Life</title>
-  <meta name="description" content="VibeCo Digital builds practical mobile apps for DC commuters, small businesses, and everyday people. Based in Richmond, VA.">
-  <meta property="og:title" content="VibeCo Digital — Apps Built for Real Life">
-  <meta property="og:description" content="Practical apps for DC commuters, small businesses, and everyday life.">
-  <meta property="og:url" content="https://vibecodigital.com">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VibeCo Digital — Apps &amp; Websites Built for Real Life</title>
+<meta name="description" content="VibeCo Digital is an AI-assisted software studio serving the Washington, DC area (DC, Maryland & Virginia) — practical mobile apps and standout websites, from fast one-pagers to immersive real-time 3D.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="VibeCo Digital — Apps &amp; Websites Built for Real Life">
+<meta property="og:description" content="AI-assisted apps and standout websites for the Washington, DC area (DC · Maryland · Virginia). Ask about our immersive 3D Signature tier.">
+<meta property="og:url" content="https://vibecodigital.com">
+<meta name="theme-color" content="#0A0A0C">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMwQTBBMEMiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIxMyIgZmlsbD0iI0ZGNUE0RCIvPjwvc3ZnPg==">
+<style>
+/* VibeCo Digital — 3D marketing homepage. Deliberately single-theme: this is a
+   committed dark, red-on-black WebGL world (the brand + the medium). */
+:root{
+  color-scheme: dark;
+  --ground:#0A0A0C; --ground-2:#0E0E11; --panel:#141417; --panel-2:#1A1A1E;
+  --ink:#F5F3F1; --muted:#8C867F; --faint:#57534E;
+  --red:#E6332A; --red-lite:#FF5A4D; --ember:#FF8A3D;
+  --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.05);
+  --mono:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --col:1160px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--red);color:#fff}
 
-    :root {
-      --red: #E6332A;
-      --red-light: #FF5252;
-      --bg: #0C0C0C;
-      --bg-card: #161616;
-      --bg-card2: #1E1E1E;
-      --text: #F2F2F2;
-      --muted: #777;
-      --border: #262626;
-      --green: #22c55e;
-    }
+/* WebGL canvas + fallback ground */
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;display:block}
+.bg-fallback{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(60vw 60vw at 72% 8%, rgba(230,51,42,.20), transparent 60%),
+    radial-gradient(50vw 50vw at 20% 30%, rgba(255,90,77,.10), transparent 55%),
+    radial-gradient(70vw 40vw at 50% 100%, rgba(255,138,61,.06), transparent 60%),
+    var(--ground);}
+.grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.35;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");}
+.page{position:relative;z-index:3}
 
-    html { scroll-behavior: smooth; }
+.wrap{max-width:var(--col);margin:0 auto;padding:0 28px}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--red-lite)}
+.label{font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
+/* Nav */
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:rgba(10,10,12,.55);border-bottom:1px solid var(--line-2)}
+.nav-in{max-width:var(--col);margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;font-size:1.12rem;letter-spacing:-.02em}
+.logo b{color:var(--red-lite);font-weight:800}
+.nav-links{display:flex;gap:30px;font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase}
+.nav-links a{color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{border:1px solid var(--line);border-radius:100px;padding:8px 16px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);transition:.2s}
+.nav-cta:hover{background:var(--red);border-color:var(--red)}
 
-    a { color: var(--red-light); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+/* Hero — asymmetric */
+.hero{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:120px 0 80px;position:relative}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(100deg,rgba(10,10,12,.94) 0%,rgba(10,10,12,.72) 34%,rgba(10,10,12,.20) 58%,transparent 76%)}
+.hero-grid{max-width:var(--col);margin:0 auto;padding:0 28px;width:100%;display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:40px;align-items:center;position:relative;z-index:1}
+.hero h1{font-size:clamp(2.9rem,8vw,6.6rem);font-weight:800;line-height:.96;letter-spacing:-.045em;text-wrap:balance;margin:22px 0 26px;text-shadow:0 2px 44px rgba(0,0,0,.6)}
+.hero h1 em{font-style:normal;color:var(--red-lite);position:relative}
+.hero .lede{font-size:clamp(1.02rem,1.5vw,1.2rem);color:#cfc9c2;max-width:34ch;line-height:1.7;text-shadow:0 1px 18px rgba(0,0,0,.75)}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:100px;font-weight:600;font-size:.92rem;transition:transform .16s,background .2s,border-color .2s;border:1px solid transparent}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--red);color:#fff;box-shadow:0 10px 40px -12px rgba(230,51,42,.7)}
+.btn-primary:hover{background:var(--red-lite)}
+.btn-ghost{border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--red-lite);background:rgba(230,51,42,.08)}
+.meta-rail{display:flex;flex-direction:column;gap:14px;align-items:flex-end;text-align:right;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);border-right:1px solid var(--line);padding-right:20px}
+.meta-rail span{color:var(--muted)}
+.meta-rail .live{color:var(--red-lite);display:inline-flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--red-lite);box-shadow:0 0 0 0 rgba(255,90,77,.6);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,90,77,.5)}70%{box-shadow:0 0 0 9px rgba(255,90,77,0)}100%{box-shadow:0 0 0 0 rgba(255,90,77,0)}}
+.scroll-hint{position:absolute;left:28px;bottom:26px;font-family:var(--mono);font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:10px}
+.scroll-hint::before{content:'';width:34px;height:1px;background:var(--faint);animation:slide 2.2s ease-in-out infinite}
+@keyframes slide{0%,100%{opacity:.3;transform:scaleX(.5);transform-origin:left}50%{opacity:1;transform:scaleX(1)}}
 
-    /* ── Nav ── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(12,12,12,0.92);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner {
-      max-width: 1100px; margin: 0 auto; padding: 0 24px;
-      height: 60px; display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-logo { font-size: 1.2rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; text-decoration: none; }
-    .nav-logo span { color: var(--red-light); }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a { font-size: 0.88rem; color: var(--muted); transition: color 0.2s; }
-    .nav-links a:hover { color: var(--text); text-decoration: none; }
+/* Hero code editor ("vscode running" visual) */
+.editor{position:relative;z-index:1;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0d0d11;box-shadow:0 44px 100px -34px rgba(0,0,0,.92),0 0 0 1px rgba(255,90,77,.06);transform:perspective(1500px) rotateY(-9deg) rotateX(4deg);transform-style:preserve-3d;transition:transform .45s cubic-bezier(.2,.7,.2,1);font-family:var(--mono);will-change:transform}
+.ed-top{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#141419;border-bottom:1px solid var(--line-2)}
+.ed-top .tl{width:11px;height:11px;border-radius:50%}
+.tl.r{background:#ff5f57}.tl.y{background:#febc2e}.tl.g{background:#28c840}
+.ed-file{margin-left:8px;font-size:.72rem;color:var(--muted)}
+.ed-status{margin-left:auto;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#2ee6a6;display:inline-flex;align-items:center;gap:6px}
+.ed-status::before{content:'';width:6px;height:6px;border-radius:50%;background:#2ee6a6;box-shadow:0 0 9px #2ee6a6}
+.ed-main{display:flex;background:#0d0d11}
+.ed-gutter{padding:16px 10px 16px 16px;color:#3a3a46;font-size:.74rem;line-height:1.66;text-align:right;white-space:pre;user-select:none;background:#0b0b0e}
+.ed-code{margin:0;padding:16px 18px 16px 12px;font-size:.76rem;line-height:1.66;overflow:hidden;white-space:pre;flex:1}
+.ed-code .k{color:var(--red-lite)}.ed-code .s{color:#8fe3b0}.ed-code .t{color:var(--ember)}.ed-code .c{color:#4f4a55;font-style:italic}.ed-code .n{color:#ffb37a}.ed-code .p{color:#8c867f}.ed-code .f{color:#e7c86b}
+.ed-line{display:block;padding-right:8px}
+.ed-line.active{background:linear-gradient(90deg,rgba(255,90,77,.12),transparent 72%);box-shadow:inset 2px 0 0 var(--red)}
+.ed-term{border-top:1px solid var(--line-2);background:#0b0b0e;padding:12px 16px;font-size:.74rem;color:#cfc9c2;min-height:42px;display:flex;align-items:center;gap:8px;white-space:nowrap;overflow:hidden}
+.ed-term .tprompt{color:var(--red-lite);flex-shrink:0}
+.tcaret{display:inline-block;width:7px;height:1em;background:var(--red-lite);animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
 
-    /* ── Hero ── */
-    .hero { padding: 100px 0 88px; text-align: center; }
-    .hero-eyebrow {
-      display: inline-block;
-      background: rgba(230,51,42,0.10);
-      border: 1px solid rgba(255,82,82,0.28);
-      color: var(--red-light);
-      font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 5px 14px; border-radius: 100px; margin-bottom: 28px;
-    }
-    .hero h1 {
-      font-size: clamp(2.4rem, 5.5vw, 4rem);
-      font-weight: 800; line-height: 1.12; letter-spacing: -2px;
-      max-width: 860px; margin: 0 auto 24px;
-    }
-    .hero h1 span { color: var(--red-light); }
-    .hero-sub {
-      font-size: 1.1rem; color: var(--muted); line-height: 1.75;
-      max-width: 560px; margin: 0 auto 44px;
-    }
-    .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+/* Reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
 
-    /* ── Buttons ── */
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 24px; border-radius: 9px;
-      font-size: 0.93rem; font-weight: 600; cursor: pointer;
-      transition: opacity 0.2s, transform 0.15s; text-decoration: none;
-    }
-    .btn:hover { opacity: 0.82; transform: translateY(-1px); text-decoration: none; }
-    .btn-primary { background: var(--red); color: #fff; }
-    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+/* Sections */
+section{position:relative;padding:110px 0;border-top:1px solid var(--line-2)}
+.sec-head{max-width:640px;margin:0 auto 60px;text-align:center}
+.sec-head h2{font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;text-wrap:balance;margin:14px 0 14px}
+.sec-head p{color:var(--muted);font-size:1.02rem}
 
-    /* ── Section header ── */
-    .section-header { text-align: center; margin-bottom: 60px; }
-    .section-header h2 {
-      font-size: clamp(1.9rem, 3vw, 2.7rem);
-      font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px;
-    }
-    .section-header p { color: var(--muted); font-size: 1rem; max-width: 500px; margin: 0 auto; }
+/* Signature (the premium 3D tier) — centerpiece */
+.signature{padding:130px 0}
+.sig-panel{max-width:var(--col);margin:0 auto;padding:0 28px}
+.sig-card{position:relative;border:1px solid var(--line);border-radius:26px;padding:clamp(34px,5vw,70px);overflow:hidden;
+  background:linear-gradient(180deg,rgba(20,20,23,.72),rgba(10,10,12,.55));backdrop-filter:blur(8px)}
+.sig-card::before{content:'';position:absolute;inset:0;border-radius:26px;padding:1px;background:linear-gradient(135deg,rgba(255,90,77,.6),transparent 40%,transparent 70%,rgba(255,138,61,.4));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.sig-inner{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:54px;align-items:center}
+.sig-lead h2{font-size:clamp(2.1rem,3.6vw,3.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.02;margin:16px 0 18px;text-wrap:balance}
+.sig-lead h2 em{font-style:normal;background:linear-gradient(100deg,var(--red-lite),var(--ember));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sig-lead p{color:var(--muted);font-size:1.03rem;line-height:1.75;margin-bottom:16px}
+.sig-lead .this{color:var(--ink);font-weight:600}
+.sig-feats{list-style:none;display:flex;flex-direction:column;gap:13px;margin-top:26px}
+.sig-feats li{display:flex;gap:12px;align-items:flex-start;font-size:.95rem;color:#d8d3cd}
+.sig-feats li::before{content:'';flex-shrink:0;width:18px;height:18px;margin-top:2px;border-radius:6px;background:linear-gradient(135deg,var(--red),var(--ember));box-shadow:0 4px 14px -4px rgba(230,51,42,.8)}
+.tier-strip{display:flex;flex-direction:column;gap:12px}
+.tier{display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:rgba(10,10,12,.4);transition:.25s}
+.tier .t-name{font-weight:700;font-size:.98rem}
+.tier .t-desc{color:var(--muted);font-size:.8rem;margin-top:2px}
+.tier .t-tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);white-space:nowrap}
+.tier.top{border-color:rgba(255,90,77,.55);background:linear-gradient(120deg,rgba(230,51,42,.14),rgba(255,138,61,.06))}
+.tier.top .t-tag{color:var(--red-lite)}
+.tier:hover{transform:translateX(4px);border-color:rgba(255,90,77,.4)}
 
-    /* ── App showcase ── */
-    .app-showcase { padding: 100px 0; border-top: 1px solid var(--border); }
-    .app-showcase-inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 72px; align-items: center;
-    }
+/* Work / app showcase */
+.showcase-in{max-width:var(--col);margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.badge{display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:#2ee6a6;border:1px solid rgba(46,230,166,.3);background:rgba(46,230,166,.08);padding:5px 12px;border-radius:100px;margin-bottom:18px}
+.showcase h2{font-size:clamp(1.9rem,3vw,2.7rem);font-weight:800;letter-spacing:-.03em;line-height:1.08;margin-bottom:16px}
+.showcase p{color:var(--muted);margin-bottom:14px;font-size:.98rem;line-height:1.7}
+.flist{list-style:none;display:flex;flex-direction:column;gap:11px;margin:22px 0 30px}
+.flist li{display:flex;gap:10px;font-size:.92rem;color:#cfcac4}
+.flist li::before{content:'→';color:var(--red-lite);flex-shrink:0;font-weight:700}
+.stores{display:flex;gap:12px;flex-wrap:wrap}
+.store{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px 16px;background:var(--panel)}
+.store .s-top{font-size:.6rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+.store .s-name{font-size:.86rem;font-weight:600}
+.phones{display:flex;gap:16px;justify-content:center;align-items:flex-end;perspective:1400px}
+.phone{width:172px;flex-shrink:0;border-radius:34px;border:2px solid #2c2c30;overflow:hidden;box-shadow:0 34px 80px -24px rgba(0,0,0,.85);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.phone img{width:100%;display:block}
+.phone.mid{width:190px;transform:translateY(-26px) rotateY(-8deg)}
+.phone.l{transform:rotateY(10deg)}
+.phone.r{transform:rotateY(-10deg)}
+.phones:hover .phone{transform:translateY(-6px)}
+.phones:hover .phone.mid{transform:translateY(-32px)}
 
-    .app-info .badge {
-      display: inline-block;
-      background: rgba(34,197,94,0.1);
-      border: 1px solid rgba(34,197,94,0.22);
-      color: var(--green);
-      font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.07em; text-transform: uppercase;
-      padding: 4px 12px; border-radius: 100px; margin-bottom: 20px;
-    }
-    .app-info h2 {
-      font-size: clamp(1.9rem, 2.8vw, 2.6rem);
-      font-weight: 800; letter-spacing: -0.5px;
-      margin-bottom: 16px; line-height: 1.18;
-    }
-    .app-info p { color: var(--muted); margin-bottom: 14px; font-size: 0.97rem; line-height: 1.75; }
+/* Pillars — 3D tilt cards */
+.pillars{max-width:var(--col);margin:0 auto;padding:0 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.tilt{position:relative;transform-style:preserve-3d;transition:transform .3s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.card{background:linear-gradient(180deg,var(--panel),var(--ground-2));border:1px solid var(--line);border-radius:20px;padding:34px 30px;height:100%}
+.card .ic{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:rgba(230,51,42,.12);border:1px solid rgba(230,51,42,.25);margin-bottom:22px;transform:translateZ(34px)}
+.card h3{font-size:1.1rem;font-weight:700;margin-bottom:10px;transform:translateZ(22px)}
+.card p{color:var(--muted);font-size:.9rem;line-height:1.65;margin-bottom:20px;transform:translateZ(14px)}
+.card ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.card li{font-size:.82rem;color:#6f6a64;padding-left:15px;position:relative}
+.card li::before{content:'·';position:absolute;left:3px;color:var(--red-lite);font-size:1.2rem;line-height:.8}
 
-    .feature-list { list-style: none; margin: 24px 0 32px; display: flex; flex-direction: column; gap: 11px; }
-    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.93rem; color: #ccc; }
-    .feature-list li::before { content: '✓'; color: var(--red-light); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+/* About + stats */
+.about-in{max-width:var(--col);margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.about h2{font-size:clamp(1.9rem,3vw,2.7rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:18px;text-wrap:balance}
+.about p{color:var(--muted);margin-bottom:14px;font-size:.98rem;line-height:1.75}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat{border:1px solid var(--line);border-radius:18px;padding:26px 22px;background:var(--panel)}
+.stat .n{font-size:2.3rem;font-weight:800;letter-spacing:-.03em;line-height:1;background:linear-gradient(100deg,var(--red-lite),var(--ember));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.stat .l{font-size:.78rem;color:var(--muted);margin-top:8px;line-height:1.45}
 
-    .store-badges { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
-    .store-badge {
-      display: flex; align-items: center; gap: 10px;
-      background: var(--bg-card2); border: 1px solid var(--border);
-      border-radius: 10px; padding: 10px 18px; font-size: 0.85rem; color: var(--muted);
-    }
-    .store-badge .badge-label { display: flex; flex-direction: column; }
-    .store-badge .badge-top { font-size: 0.62rem; opacity: 0.65; }
-    .store-badge .badge-name { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+/* Contact */
+.contact{text-align:center}
+.contact h2{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-.03em;margin-bottom:14px;text-wrap:balance}
+.contact p{color:var(--muted);margin-bottom:32px;font-size:1.05rem}
+.contact .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
-    /* ── Phone mockup grid ── */
-    .screenshots-grid {
-      display: flex; gap: 14px;
-      justify-content: center; align-items: flex-end;
-    }
-    .phone-frame { position: relative; width: 162px; flex-shrink: 0; }
-    .phone-frame.wide { width: 178px; }
-    .phone-frame img {
-      width: 100%; border-radius: 34px;
-      border: 2px solid #2e2e2e; display: block;
-      box-shadow: 0 28px 72px rgba(0,0,0,0.75);
-    }
-    .phone-frame.lifted { transform: translateY(-22px); }
+/* Footer */
+footer{border-top:1px solid var(--line-2);padding:34px 0;position:relative;z-index:2}
+.foot-in{max-width:var(--col);margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--faint);text-transform:uppercase}
+.foot-in a{color:var(--muted)}
+.foot-in a:hover{color:var(--ink)}
+.foot-links{display:flex;gap:24px}
 
-    /* ── What we build ── */
-    .what-we-build { padding: 100px 0; border-top: 1px solid var(--border); }
-    .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .pillar-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 18px; padding: 32px 26px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .pillar-card:hover { border-color: rgba(230,51,42,0.45); transform: translateY(-3px); }
-    .pillar-icon {
-      width: 48px; height: 48px;
-      background: rgba(230,51,42,0.10); border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.45rem; margin-bottom: 20px;
-    }
-    .pillar-card h3 { font-size: 1.08rem; font-weight: 700; margin-bottom: 10px; }
-    .pillar-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.65; margin-bottom: 20px; }
-    .idea-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-    .idea-list li { font-size: 0.82rem; color: #666; padding-left: 14px; position: relative; }
-    .idea-list li::before { content: '·'; position: absolute; left: 4px; color: var(--red-light); font-size: 1.1rem; line-height: 1; top: 1px; }
+:focus-visible{outline:2px solid var(--red-lite);outline-offset:3px;border-radius:4px}
 
-    /* ── About ── */
-    .about { padding: 100px 0; border-top: 1px solid var(--border); }
-    .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-    .about-text h2 {
-      font-size: clamp(1.9rem, 2.8vw, 2.6rem);
-      font-weight: 800; letter-spacing: -0.5px; margin-bottom: 18px; line-height: 1.18;
-    }
-    .about-text p { color: var(--muted); margin-bottom: 14px; line-height: 1.75; font-size: 0.97rem; }
-    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .stat-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 24px 20px;
-    }
-    .stat-card .stat-num { font-size: 2.1rem; font-weight: 800; color: var(--red-light); letter-spacing: -1px; line-height: 1; }
-    .stat-card .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
-
-    /* ── Contact ── */
-    .contact { padding: 88px 0; border-top: 1px solid var(--border); text-align: center; }
-    .contact h2 { font-size: clamp(1.8rem, 2.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; }
-    .contact p { color: var(--muted); margin-bottom: 32px; font-size: 1rem; }
-    .contact-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-
-    /* ── Footer ── */
-    footer { border-top: 1px solid var(--border); padding: 32px 0; }
-    .footer-inner {
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 16px; font-size: 0.83rem; color: var(--muted);
-    }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { color: var(--muted); }
-    .footer-links a:hover { color: var(--text); text-decoration: none; }
-
-    /* ── Responsive ── */
-    @media (max-width: 820px) {
-      .app-showcase-inner, .about-inner { grid-template-columns: 1fr; gap: 44px; }
-      .screenshots-grid { display: none; }
-      .pillars-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .footer-inner { flex-direction: column; text-align: center; }
-    }
-  </style>
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .editor{transform:none;margin-top:6px}
+  .sig-inner,.showcase-in,.about-in{grid-template-columns:1fr;gap:40px}
+  .pillars{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .phones{display:none}
+  .foot-in{flex-direction:column;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .tilt{transition:none}
+}
+@media(max-width:620px){.editor{display:none}}
+</style>
 </head>
 <body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="bg-fallback" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
-<!-- Nav -->
+<div class="page">
 <nav>
-  <div class="nav-inner">
-    <a href="/" class="nav-logo">VibeCo<span> Digital</span></a>
-    <ul class="nav-links">
-      <li><a href="#apps">Apps</a></li>
-      <li><a href="#services">What We Build</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+  <div class="nav-in">
+    <a href="#top" class="logo">VibeCo<b>.</b> Digital</a>
+    <div class="nav-links">
+      <a href="#signature">Signature</a>
+      <a href="#work">Work</a>
+      <a href="#build">What we build</a>
+      <a href="#about">About</a>
+    </div>
+    <a href="#contact" class="nav-cta">Start a project</a>
   </div>
 </nav>
 
-<!-- Hero -->
-<section class="hero">
-  <div class="container">
-    <span class="hero-eyebrow">Richmond, VA &middot; Est. 2026</span>
-    <h1>Apps built for <span>real life</span><br>in the DC area</h1>
-    <p class="hero-sub">We build practical mobile apps and tools for DC commuters, small business owners, and everyday people — not enterprise software, just things that actually help.</p>
-    <div class="hero-cta">
-      <a href="#apps" class="btn btn-primary">See Our Apps</a>
-      <a href="#contact" class="btn btn-outline">Work With Us</a>
-    </div>
-  </div>
-</section>
-
-<!-- App Showcase: Track the Track -->
-<section class="app-showcase" id="apps">
-  <div class="container">
-    <div class="app-showcase-inner">
-      <div class="app-info">
-        <span class="badge">Coming Soon &middot; Android &amp; iOS</span>
-        <h2>Track the Track</h2>
-        <p>Real-time DC Metro arrivals, right in your pocket. Know exactly when your train is coming, which platform to use, and whether the escalators are even working.</p>
-        <p>No login. No tracking. No fluff — just the Metro info you actually need, updated every 25 seconds.</p>
-        <ul class="feature-list">
-          <li>Live arrivals for all 97 stations, updated every 25 seconds</li>
-          <li>Service alerts and active incident tracking system-wide</li>
-          <li>Interactive Metro map with station search</li>
-          <li>Advanced Mode: weather, line reliability scores, urgency indicators</li>
-          <li>Set a home station — your commute is always one tap away</li>
-          <li>Escalator &amp; elevator outage status per station</li>
-          <li>Zero personal data collected — everything stays on your device</li>
-        </ul>
-        <div class="store-badges">
-          <div class="store-badge">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M3.18 23.87L13.6 13.45l2.96 2.96L4.04 24l-.86-.13zM.24 1.57A1.5 1.5 0 000 2.25v19.5c0 .27.08.51.24.72l.1.1L11.4 11.5v-.28L.34 1.47l-.1.1zM20.16 9.6l-2.76-1.56-3.06 3.06 3.06 3.06 2.78-1.57c.79-.45.79-1.18 0-1.99h-.02zM3.18.13L16.56 7.8l-2.96 2.96L3.18.13z" fill="#9ca3af"/>
-            </svg>
-            <div class="badge-label">
-              <span class="badge-top">Coming soon on</span>
-              <span class="badge-name">Google Play</span>
-            </div>
-          </div>
-          <div class="store-badge">
-            <svg width="20" height="22" viewBox="0 0 814 1000" fill="none">
-              <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 376.7 0 248.7 0 124.8 0 56.4 21.4 18 61.8 18c42.7 0 99.8 44.4 185.6 44.4s131.8-52.8 196.2-52.8c58.1 0 122.8 31.1 177.6 65.8l-.9-2.1C619.6 56.3 700.5 8.9 796.2 8.9c53 0 114.9 32 155.5 95.4l-163.6 236.6z" fill="#9ca3af"/>
-            </svg>
-            <div class="badge-label">
-              <span class="badge-top">Coming soon on</span>
-              <span class="badge-name">App Store</span>
-            </div>
-          </div>
-        </div>
+<header class="hero" id="top">
+  <div class="hero-grid">
+    <div class="hero-main">
+      <span class="eyebrow reveal">AI-assisted software studio · Washington, DC area</span>
+      <h1 class="reveal">Apps &amp; websites,<br>built for <em>real life</em>.</h1>
+      <p class="lede reveal">We make practical mobile apps and standout websites — from a fast, honest one-pager to a fully immersive, real-time 3D experience. For small businesses across the DMV — DC, Maryland &amp; Virginia.</p>
+      <div class="cta reveal">
+        <a href="#signature" class="btn btn-primary">See the Signature tier</a>
+        <a href="#contact" class="btn btn-ghost">Start a project</a>
       </div>
+    </div>
+    <aside class="editor reveal" aria-hidden="true">
+      <div class="ed-top"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="ed-file">Hero.jsx — vibeco</span><span class="ed-status">AI live</span></div>
+      <div class="ed-main">
+        <div class="ed-gutter" id="edgut"></div>
+        <pre class="ed-code"><code id="edcode"></code></pre>
+      </div>
+      <div class="ed-term"><span class="tprompt">vibeco ~ $</span><span id="edterm"></span><span class="tcaret">&nbsp;</span></div>
+    </aside>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">Scroll</div>
+</header>
 
-      <div class="screenshots-grid">
-        <div class="phone-frame">
-          <img src="screenshots/HomeScreen.png" alt="Track the Track — Home screen showing station list" loading="lazy">
+<main>
+<!-- Signature: the premium 3D tier -->
+<section class="signature" id="signature">
+  <div class="sig-panel">
+    <div class="sig-card reveal">
+      <div class="sig-inner">
+        <div class="sig-lead">
+          <span class="eyebrow">Signature tier · top of the range</span>
+          <h2>Websites that make people <em>stop scrolling</em>.</h2>
+          <p>Real-time WebGL, scroll-driven motion, and interactive 3D — a site that feels less like a page and more like a place. The kind of first impression that does the selling for you.</p>
+          <p class="this">You're looking at one right now. The scene behind this page is live, rendered in your browser, reacting to your cursor.</p>
+          <ul class="sig-feats">
+            <li>Bespoke 3D hero — shaders, particles, or a model of your product</li>
+            <li>Scroll-choreographed reveals and camera moves</li>
+            <li>Interactive menus, galleries, and product showcases</li>
+            <li>Tuned to stay fast on phones — motion that respects the visitor</li>
+          </ul>
         </div>
-        <div class="phone-frame wide lifted">
-          <img src="screenshots/PredictionBasic.png" alt="Track the Track — Live arrival times by line" loading="lazy">
-        </div>
-        <div class="phone-frame">
-          <img src="screenshots/PredictionAdvanced_2.png" alt="Track the Track — Advanced mode with alerts" loading="lazy">
+        <div class="tier-strip" aria-label="Website tiers">
+          <div class="tier">
+            <div><div class="t-name">Launch</div><div class="t-desc">A fast, clean one-to-five-page site</div></div>
+            <div class="t-tag">Essential</div>
+          </div>
+          <div class="tier">
+            <div><div class="t-name">Grow</div><div class="t-desc">Booking, ordering, live features + app</div></div>
+            <div class="t-tag">Interactive</div>
+          </div>
+          <div class="tier top">
+            <div><div class="t-name">Signature</div><div class="t-desc">Immersive, real-time 3D showpiece</div></div>
+            <div class="t-tag">Quoted</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- What We Build -->
-<section class="what-we-build" id="services">
-  <div class="container">
-    <div class="section-header">
-      <h2>Built for people, not corporations</h2>
-      <p>We focus on three areas: local transit utilities, tools for small businesses, and practical everyday helpers.</p>
+<!-- Work: Track the Track -->
+<section class="showcase" id="work">
+  <div class="showcase-in">
+    <div class="reveal">
+      <span class="badge">Coming soon · Android &amp; iOS</span>
+      <h2>Track the Track</h2>
+      <p>Real-time DC Metro arrivals, right in your pocket. Know exactly when your train is coming, which platform to use, and whether the escalators are even working.</p>
+      <p>No login. No ads. No personal data — just the Metro info you actually need, updated every 25 seconds.</p>
+      <ul class="flist">
+        <li>Live arrivals for all 97 stations, refreshed every 25 seconds</li>
+        <li>System-wide service alerts and incident tracking</li>
+        <li>Interactive Metro map with station search</li>
+        <li>Advanced Mode: weather, line reliability, urgency cues</li>
+        <li>Set a home station — your commute is one tap away</li>
+        <li>Escalator &amp; elevator outage status per station</li>
+      </ul>
+      <div class="stores">
+        <div class="store"><div><div class="s-top">Coming soon on</div><div class="s-name">Google Play</div></div></div>
+        <div class="store"><div><div class="s-top">Coming soon on</div><div class="s-name">App Store</div></div></div>
+      </div>
     </div>
-    <div class="pillars-grid">
-
-      <div class="pillar-card">
-        <div class="pillar-icon">🚇</div>
-        <h3>Transit &amp; Commuting</h3>
-        <p>Real-time tools for navigating the DC metro area — trains, buses, and whatever comes next.</p>
-        <ul class="idea-list">
-          <li>DC Metro arrivals — Track the Track</li>
-          <li>Bus stop prediction apps</li>
-          <li>Commute time trackers &amp; planners</li>
-          <li>Route comparison &amp; alert tools</li>
-        </ul>
-      </div>
-
-      <div class="pillar-card">
-        <div class="pillar-icon">🏪</div>
-        <h3>Small Business Apps</h3>
-        <p>Affordable, no-frills tools for the shops and services that keep neighborhoods running.</p>
-        <ul class="idea-list">
-          <li>Barber shop &amp; salon wait time boards</li>
-          <li>Digital client address books</li>
-          <li>Simple business websites</li>
-          <li>Appointment &amp; schedule helpers</li>
-        </ul>
-      </div>
-
-      <div class="pillar-card">
-        <div class="pillar-icon">🛠️</div>
-        <h3>Everyday Utilities</h3>
-        <p>Practical tools that solve specific, real problems — for job seekers, residents, and everyone in between.</p>
-        <ul class="idea-list">
-          <li>Job hunting helpers &amp; application trackers</li>
-          <li>Local event &amp; resource finders</li>
-          <li>Neighborhood guides</li>
-          <li>Productivity &amp; task tools</li>
-        </ul>
-      </div>
-
+    <div class="phones reveal" aria-label="Track the Track app screenshots">
+      <div class="phone l"><img loading="lazy" src="screenshots/HomeScreen.png" alt="Track the Track — station list home screen"></div>
+      <div class="phone mid"><img loading="lazy" src="screenshots/PredictionBasic.png" alt="Track the Track — live arrival times"></div>
+      <div class="phone r"><img loading="lazy" src="screenshots/PredictionAdvanced_2.png" alt="Track the Track — advanced mode with alerts"></div>
     </div>
+  </div>
+</section>
+
+<!-- What we build -->
+<section id="build">
+  <div class="sec-head reveal">
+    <span class="label">What we build</span>
+    <h2>Built for people, not corporations</h2>
+    <p>Three areas where a small, sharp team makes an outsized difference.</p>
+  </div>
+  <div class="pillars">
+    <div class="tilt reveal"><div class="card">
+      <div class="ic">🚇</div><h3>Transit &amp; commuting</h3>
+      <p>Real-time tools for getting around the DC metro area — trains, buses, and whatever's next.</p>
+      <ul><li>DC Metro arrivals — Track the Track</li><li>Bus stop prediction apps</li><li>Commute planners &amp; alerts</li><li>Route comparison tools</li></ul>
+    </div></div>
+    <div class="tilt reveal"><div class="card">
+      <div class="ic">🏪</div><h3>Small business web &amp; apps</h3>
+      <p>Done-for-you websites and simple tools for the shops and services that keep neighborhoods running.</p>
+      <ul><li>Launch → Grow → Signature websites</li><li>Booking &amp; wait-time boards</li><li>Catering &amp; inquiry forms</li><li>Kept alive on a care plan</li></ul>
+    </div></div>
+    <div class="tilt reveal"><div class="card">
+      <div class="ic">🛠️</div><h3>Everyday utilities</h3>
+      <p>Practical tools that solve a specific, real problem — for residents, job seekers, and everyone between.</p>
+      <ul><li>Job-hunt helpers &amp; trackers</li><li>Local event &amp; resource finders</li><li>Neighborhood guides</li><li>Productivity tools</li></ul>
+    </div></div>
   </div>
 </section>
 
 <!-- About -->
 <section class="about" id="about">
-  <div class="container">
-    <div class="about-inner">
-      <div class="about-text">
-        <h2>A small team building things that matter locally</h2>
-        <p>VibeCo LLC is an independent software company based in Richmond, VA, building apps for the Washington DC metro area and beyond.</p>
-        <p>We're not chasing venture capital or building for scale. We build useful things for real people — commuters who need to catch the next train, shop owners who need a simple way to manage their customers, and job seekers who need better tools.</p>
-        <p>Every app we ship is privacy-first: no unnecessary data collection, no hidden tracking, no dark patterns.</p>
-        <a href="#contact" class="btn btn-outline" style="margin-top: 10px;">Get in touch</a>
-      </div>
-      <div class="about-stats">
-        <div class="stat-card">
-          <div class="stat-num">97</div>
-          <div class="stat-label">DC Metro stations covered in Track the Track</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">0</div>
-          <div class="stat-label">Personal data collected across all our apps</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">25s</div>
-          <div class="stat-label">Live arrival data refresh rate</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">2026</div>
-          <div class="stat-label">Founded in Richmond, VA</div>
-        </div>
-      </div>
+  <div class="about-in">
+    <div class="reveal">
+      <span class="label">About</span>
+      <h2>A small team building things that matter locally</h2>
+      <p>VibeCo LLC is an independent software studio serving the Washington, DC metro area — DC, Maryland &amp; Virginia (the DMV).</p>
+      <p>We're not chasing venture capital or building for scale. We make useful things for real people — and when a business wants to stand out, we can make something genuinely unforgettable.</p>
+      <p>Every project is privacy-first: no unnecessary data collection, no hidden tracking, no dark patterns.</p>
+      <a href="#contact" class="btn btn-ghost" style="margin-top:8px">Get in touch</a>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><div class="n">97</div><div class="l">DC Metro stations in Track the Track</div></div>
+      <div class="stat"><div class="n">0</div><div class="l">Personal data collected across our apps</div></div>
+      <div class="stat"><div class="n">25s</div><div class="l">Live arrival refresh rate</div></div>
+      <div class="stat"><div class="n">DMV</div><div class="l">DC · Maryland · Virginia — the area we serve</div></div>
     </div>
   </div>
 </section>
 
 <!-- Contact -->
 <section class="contact" id="contact">
-  <div class="container">
-    <h2>Let's build something</h2>
-    <p>Have an idea for an app? Need a simple tool for your business? Want to work together? Reach out.</p>
-    <div class="contact-links">
+  <div class="wrap reveal">
+    <span class="label">Contact</span>
+    <h2>Let's build something worth looking at</h2>
+    <p>An app idea, a simple site, or a full 3D showpiece — tell us what you have in mind.</p>
+    <div class="cta">
       <a href="mailto:hello@vibecodigital.com" class="btn btn-primary">hello@vibecodigital.com</a>
-      <a href="mailto:support@vibecodigital.com" class="btn btn-outline">App Support</a>
+      <a href="mailto:support@vibecodigital.com" class="btn btn-ghost">App support</a>
     </div>
   </div>
 </section>
+</main>
 
-<!-- Footer -->
 <footer>
-  <div class="container">
-    <div class="footer-inner">
-      <span>&copy; 2026 VibeCo LLC &middot; Richmond, VA</span>
-      <div class="footer-links">
-        <a href="/privacy">Privacy Policy</a>
-        <a href="mailto:hello@vibecodigital.com">Contact</a>
-      </div>
+  <div class="foot-in">
+    <span>© 2026 VibeCo LLC · Serving DC · Maryland · Virginia</span>
+    <div class="foot-links">
+      <a href="/privacy">Privacy</a>
+      <a href="mailto:hello@vibecodigital.com">Contact</a>
     </div>
   </div>
 </footer>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Scroll reveal ---- */
+  var revs = [].slice.call(document.querySelectorAll('.reveal'));
+  if (reduce || !('IntersectionObserver' in window)) {
+    revs.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    revs.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---- 3D tilt cards ---- */
+  if (!reduce && window.matchMedia('(hover:hover)').matches){
+    document.querySelectorAll('.tilt').forEach(function(t){
+      t.addEventListener('pointermove', function(e){
+        var r = t.getBoundingClientRect();
+        var px = (e.clientX - r.left)/r.width - .5;
+        var py = (e.clientY - r.top)/r.height - .5;
+        t.style.transform = 'perspective(900px) rotateY('+(px*9).toFixed(2)+'deg) rotateX('+(-py*9).toFixed(2)+'deg) translateY(-4px)';
+      });
+      t.addEventListener('pointerleave', function(){ t.style.transform=''; });
+    });
+  }
+
+  /* ---- WebGL raymarched hero (graceful fallback to CSS gradient) ---- */
+  var canvas = document.getElementById('bg');
+  var gl = null;
+  try { gl = canvas.getContext('webgl', {alpha:true, premultipliedAlpha:false, antialias:true, powerPreference:'high-performance'}); } catch(e){}
+  if (!gl){ canvas.style.display='none'; return; } // fallback layer shows
+
+  var vsrc = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+  var fsrc=`precision highp float;
+uniform vec2 u_res;uniform float u_time;uniform vec2 u_mouse;uniform float u_scroll;uniform sampler2D u_atlas;
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+vec3 rainL(vec2 frag,float cell,float speed,float seed,vec3 tint){
+ vec2 ci=floor(frag/cell);vec2 f=fract(frag/cell);
+ float rows=floor(u_res.y/cell);
+ float col=ci.x;
+ float head=fract(u_time*speed*0.09+hash(vec2(col,seed+9.0)))*(rows+8.0)-4.0;
+ float dist=head-ci.y;
+ float bright=dist>=0.0?exp(-dist*0.14):0.0;
+ bright*=step(0.10,hash(vec2(col,seed+2.0)));
+ float gi=mod(floor(hash(ci+seed)*64.0)+floor(u_time*3.0+hash(ci+seed)*8.0),64.0);
+ vec2 gc=vec2(mod(gi,8.0),floor(gi/8.0));
+ vec2 auv=(gc+clamp(f,0.04,0.96))/8.0;
+ float g=texture2D(u_atlas,auv).r;
+ bright*=g;
+ vec3 c=tint*bright;
+ c=mix(c,vec3(1.0,0.92,0.85),(dist<1.5&&dist>=0.0)?0.85*bright:0.0);
+ return c;
+}
+void main(){
+ vec2 frag=vec2(gl_FragCoord.x,u_res.y-gl_FragCoord.y);
+ vec2 m=u_mouse*vec2(14.0,-9.0);
+ float cellN=30.0, cellF=22.0;
+ vec3 col=vec3(0.);
+ col+=rainL(frag+m,cellN,1.0,0.0,vec3(0.95,0.28,0.14));
+ col+=rainL(frag+vec2(cellF*0.5,0.0)+m*1.7,cellF,0.66,11.0,vec3(0.70,0.15,0.08))*0.5;
+ col*=(1.0-u_scroll*0.9);
+ float a=clamp(max(col.r,max(col.g,col.b))*1.5,0.0,1.0);
+ gl_FragColor=vec4(col,a);
+}`;
+
+  function sh(type,src){var s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){console.warn('shader',gl.getShaderInfoLog(s));return null;}return s;}
+  var vs=sh(gl.VERTEX_SHADER,vsrc), fs=sh(gl.FRAGMENT_SHADER,fsrc);
+  if(!vs||!fs){canvas.style.display='none';return;}
+  var prog=gl.createProgram();gl.attachShader(prog,vs);gl.attachShader(prog,fs);gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog,gl.LINK_STATUS)){console.warn('link',gl.getProgramInfoLog(prog));canvas.style.display='none';return;}
+  gl.useProgram(prog);
+  // glyph atlas: real monospace code characters -> texture, so the rain reads as code
+  var atlasCanvas=(function(){
+    var c=document.createElement('canvas');c.width=512;c.height=512;var x=c.getContext('2d');
+    x.fillStyle='#000';x.fillRect(0,0,512,512);
+    x.fillStyle='#fff';x.font='600 46px ui-monospace,Menlo,Consolas,monospace';x.textAlign='center';x.textBaseline='middle';
+    var chars='01{}[]()<>=;:+-*/!?$#&|.,_ABCDEF0123456789xyλﾊﾋﾎﾐﾔﾗﾘﾂ日本水火風ｱｲｳｴｵ%^~'.split('');
+    for(var i=0;i<64;i++){var gx=i%8,gy=(i/8)|0;x.fillText(chars[i%chars.length],gx*64+32,gy*64+34);}
+    return c;
+  })();
+  var tex=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,tex);
+  gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,atlasCanvas);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+  var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  var loc=gl.getAttribLocation(prog,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  var uRes=gl.getUniformLocation(prog,'u_res'),uTime=gl.getUniformLocation(prog,'u_time'),
+      uMouse=gl.getUniformLocation(prog,'u_mouse'),uScroll=gl.getUniformLocation(prog,'u_scroll'),uAtlas=gl.getUniformLocation(prog,'u_atlas');
+
+  var dpr=Math.min(window.devicePixelRatio||1,1.5);
+  function resize(){var w=canvas.clientWidth,h=canvas.clientHeight;canvas.width=Math.floor(w*dpr);canvas.height=Math.floor(h*dpr);gl.viewport(0,0,canvas.width,canvas.height);}
+  window.addEventListener('resize',resize);resize();
+
+  var mx=0,my=0,tmx=0,tmy=0;
+  window.addEventListener('pointermove',function(e){tmx=(e.clientX/window.innerWidth)*2-1;tmy=-((e.clientY/window.innerHeight)*2-1);});
+  var scroll=0;
+  function onScroll(){var hv=window.innerHeight;scroll=Math.min(Math.max(window.scrollY/hv,0),1);}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  var visible=true;
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible&&!reduce)raf();},{threshold:0}).observe(canvas);
+  }
+  document.addEventListener('visibilitychange',function(){if(!document.hidden&&!reduce)raf();});
+
+  var start=null, running=false;
+  function frame(ts){
+    running=true;
+    if(start===null)start=ts;
+    var time=(ts-start)/1000;
+    mx+=(tmx-mx)*.05;my+=(tmy-my)*.05;
+    gl.uniform2f(uRes,canvas.width,canvas.height);
+    gl.uniform1f(uTime,time);
+    gl.uniform2f(uMouse,mx,my);
+    gl.uniform1f(uScroll,scroll);
+    gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,tex);gl.uniform1i(uAtlas,0);
+    gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+    if(!reduce && visible && !document.hidden){requestAnimationFrame(frame);} else {running=false;}
+  }
+  function raf(){ if(!running) requestAnimationFrame(frame); }
+  if(reduce){ requestAnimationFrame(frame); } // one static frame
+  else { raf(); }
+
+  /* ---- Hero editor: render code, active-line pulse, terminal typewriter ---- */
+  (function(){
+    var codeEl=document.getElementById('edcode'),gutEl=document.getElementById('edgut'),termEl=document.getElementById('edterm');
+    if(!codeEl) return;
+    var esc=function(x){return x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
+    var LINES=[
+      [['c','// ✨ vibe-coded with AI']],
+      [['k','import'],['p',' { '],['t','Hero'],['p',', '],['t','Vibe'],['p',' } '],['k','from'],['s'," '@vibeco/ui'"]],
+      [],
+      [['k','export default function'],['f',' Site'],['p','() {']],
+      [['p','  '],['k','const'],['p',' cursor = '],['f','useVibe'],['p','()'],['c','   // reacts to visitors']],
+      [['p','  '],['k','return'],['p',' (']],
+      [['p','    <'],['t','Hero'],['p',' '],['f','glow'],['p','='],['s','"ember"'],['p','>']],
+      [['p','      <'],['t','Vibe'],['p',' '],['f','on'],['p','={'],['n','cursor'],['p','} '],['f','intensity'],['p','={'],['n','0.8'],['p','} />']],
+      [['p','      <'],['t','h1'],['p','>Built for real life.</'],['t','h1'],['p','>']],
+      [['p','      <'],['t','p'],['p','>Apps & websites for the DMV.</'],['t','p'],['p','>']],
+      [['p','      <'],['t','CTA'],['p',' '],['f','href'],['p','='],['s','"/start"'],['p','>Start a project</'],['t','CTA'],['p','>']],
+      [['p','    </'],['t','Hero'],['p','>']],
+      [['p','  )']],
+      [['p','}']]
+    ];
+    var html='',g='';
+    for(var i=0;i<LINES.length;i++){
+      var ln=LINES[i],inner='';
+      for(var j=0;j<ln.length;j++){inner+='<span class="'+ln[j][0]+'">'+esc(ln[j][1])+'</span>';}
+      html+='<span class="ed-line">'+(inner||' ')+'\n</span>';
+      g+=(i+1)+'\n';
+    }
+    codeEl.innerHTML=html;gutEl.textContent=g;
+    var lines=codeEl.querySelectorAll('.ed-line');
+    if(!reduce){
+      var ai=0;setInterval(function(){
+        for(var k=0;k<lines.length;k++)lines[k].classList.remove('active');
+        var tries=0;do{ai=(ai+1)%lines.length;tries++;}while(LINES[ai].length===0&&tries<20);
+        lines[ai].classList.add('active');
+      },1500);
+    }
+    if(termEl){
+      var seq=['vibe "a hero that feels alive" ✨','✨ AI writing Hero.jsx …','✓ 42 lines generated','wrangler pages deploy .','✅ live at vibecodigital.com'];
+      if(reduce){termEl.textContent=seq[1];}
+      else{
+        var si=0,ci=0,erasing=false;
+        (function tick(){
+          var full=seq[si];
+          if(!erasing){ci++;if(ci>=full.length){erasing=true;termEl.textContent=full;setTimeout(tick,1300);return;}}
+          else{ci-=2;if(ci<=0){ci=0;erasing=false;si=(si+1)%seq.length;}}
+          termEl.textContent=full.slice(0,Math.max(ci,0));
+          setTimeout(tick,erasing?24:52);
+        })();
+      }
+    }
+  })();
+})();
+</script>
 
 </body>
 </html>

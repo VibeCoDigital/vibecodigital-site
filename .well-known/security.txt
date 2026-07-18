@@ -1,0 +1,3 @@
+Contact: mailto:hello@vibecodigital.com
+Expires: 2027-07-12T00:00:00.000Z
+Preferred-Languages: en
