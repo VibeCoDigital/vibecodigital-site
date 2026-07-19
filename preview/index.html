@@ -101,6 +101,18 @@
          color:#9d9184;font-size:13.5px}
   footer .sp{flex:1}
   footer a{color:#c9bcaa}
+  /* feedback */
+  .fbwrap{background:var(--cream)}
+  .fb{margin-top:22px;max-width:620px;display:flex;flex-direction:column;gap:12px}
+  .fb input[type=text],.fb textarea{width:100%;font:inherit;font-size:16px;padding:14px 16px;border-radius:12px;
+        border:1.5px solid rgba(0,0,0,.14);background:#fff;color:var(--ink);resize:vertical}
+  .fb input:focus,.fb textarea:focus{outline:none;border-color:var(--accent)}
+  .fb .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .fb .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .fb button{align-self:flex-start}
+  .fb button[disabled]{opacity:.6;cursor:default}
+  .fbmsg{font-size:15px;font-weight:600;min-height:1.2em}
+  .fbmsg.ok{color:#2e7d54} .fbmsg.err{color:#c0392b}
   @media(max-width:820px){.hero,.tt{grid-template-columns:1fr}.do,.tiers{grid-template-columns:1fr}.hero .art{order:-1}}
 </style>
 </head>
@@ -202,6 +214,21 @@
   </div>
 </section>
 
+<section class="fbwrap" id="feedback">
+  <div class="wrap">
+    <div class="eyebrow">Tell us what you think</div>
+    <h2 class="sh">Leave a comment.</h2>
+    <p style="color:var(--muted);max-width:56ch">Poking around the preview? We’d love your honest take — what you like, what’s confusing, and anything you’d change. It goes straight to us.</p>
+    <form class="fb" id="fbForm" autocomplete="off">
+      <input type="text" name="name" id="fbName" placeholder="Your name (optional)" maxlength="80">
+      <textarea name="message" id="fbMsg" placeholder="Your comments…" rows="4" maxlength="4000" required></textarea>
+      <input type="text" name="website" id="fbHp" class="hp" tabindex="-1" aria-hidden="true" autocomplete="off">
+      <div class="row"><button type="submit" class="btn p" id="fbBtn">Send feedback →</button>
+        <span class="fbmsg" id="fbStatus"></span></div>
+    </form>
+  </div>
+</section>
+
 <section class="contact" id="contact">
   <div class="wrap">
     <h2>Let’s build something worth looking at.</h2>
@@ -225,6 +252,27 @@
   var img=new Image();
   img.onload=function(){var bg=document.getElementById('laneBg');bg.style.setProperty('--laneimg',"url('mainstreet_backdrop.png')");bg.classList.add('hasimg');};
   img.src='mainstreet_backdrop.png';
+})();
+
+/* feedback form → /api/feedback (stored in D1) */
+(function(){
+  var f=document.getElementById('fbForm'); if(!f) return;
+  var btn=document.getElementById('fbBtn'), status=document.getElementById('fbStatus');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var msg=document.getElementById('fbMsg').value.trim();
+    if(msg.length<2){status.className='fbmsg err';status.textContent='Please enter a comment first.';return;}
+    btn.disabled=true; status.className='fbmsg'; status.textContent='Sending…';
+    fetch('/api/feedback',{method:'POST',headers:{'content-type':'application/json'},
+      body:JSON.stringify({name:document.getElementById('fbName').value,message:msg,
+        website:document.getElementById('fbHp').value,page:location.pathname+location.hash})})
+      .then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
+      .then(function(d){
+        if(d && d.ok){status.className='fbmsg ok';status.textContent='Thank you — got it! 🙏';f.reset();}
+        else{status.className='fbmsg err';status.textContent=(d&&d.error)||'Something went wrong — please try again.';btn.disabled=false;}
+      })
+      .catch(function(){status.className='fbmsg err';status.textContent='Network error — please try again.';btn.disabled=false;});
+  });
 })();
 </script>
 </body>
