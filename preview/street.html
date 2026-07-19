@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VibeCo — A walk down Main Street</title>
+<style>
+  :root{
+    --ink:#1a1410; --paper:#fbf6ee; --accent:#c15a3c; --accent2:#e8a54b; --sky1:#bfe0ef; --sky2:#f4e6cf;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#0d0b0a;color:#fff;font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  #prog{position:fixed;top:0;left:0;height:3px;width:0%;z-index:120;
+        background:linear-gradient(90deg,var(--accent2),var(--accent))}
+
+  .scene{position:relative;height:1000vh}
+  .stage{position:sticky;top:0;height:100vh;overflow:hidden;background:linear-gradient(#0b1418,#0d0b0a);
+         perspective:1150px;perspective-origin:50% 45%}
+
+  /* ---- fixed sky backdrop (behind the 3D world) ---- */
+  .sky{position:absolute;inset:0;z-index:0;
+       background:linear-gradient(180deg,#d7e2dd 0%,#ecdcc2 42%,#e6c79b 68%,#d3ab7c 100%)}
+  .sun{position:absolute;top:12%;left:50%;width:46vh;height:46vh;transform:translateX(-50%);
+       border-radius:50%;background:radial-gradient(circle,rgba(255,238,200,.95),rgba(255,238,200,0) 70%);z-index:1}
+  /* soft-focus warm Main Street at the horizon — anchors the walk, kills the washed-out void */
+  .backdrop{position:absolute;left:-4%;right:-4%;top:24%;height:44%;z-index:1;
+            background:url('mainstreet_backdrop.png') center 42%/cover;filter:blur(3px) saturate(1.05);opacity:.9;
+            -webkit-mask-image:linear-gradient(180deg,transparent,#000 26%,#000 62%,transparent);
+            mask-image:linear-gradient(180deg,transparent,#000 26%,#000 62%,transparent)}
+  .haze{position:absolute;left:0;right:0;top:54%;height:20%;z-index:1;
+        background:linear-gradient(180deg,rgba(240,220,190,0),rgba(240,220,190,.5));filter:blur(2px)}
+
+  /* ---- the 3D world you walk through ---- */
+  .world{position:absolute;inset:0;z-index:2;transform-style:preserve-3d;will-change:transform}
+  /* the street floor — a long plane laid flat, rushing toward you */
+  .ground{position:absolute;left:50%;top:50%;width:3200px;height:18000px;margin-left:-1600px;margin-top:-9000px;
+          transform-origin:50% 50%;transform:translateY(260px) rotateX(90deg);
+          background:url('brick_road.png') center top/360px 360px repeat;
+          background-color:#9a6a4e;
+          -webkit-mask-image:linear-gradient(0deg,#000 0%,#000 40%,transparent 60%);
+          mask-image:linear-gradient(0deg,#000 0%,#000 40%,transparent 60%)}
+  .ground .glow{position:absolute;inset:0;background:linear-gradient(0deg,rgba(40,24,14,.35),transparent 40%)}
+  .ground .curbL,.ground .curbR{position:absolute;top:0;bottom:0;width:16px;background:#5a4436aa}
+  .ground .curbL{left:1040px} .ground .curbR{right:1040px}
+
+  .lot{position:absolute;left:50%;top:50%;width:920px;height:700px;margin-left:-460px;margin-top:-350px;
+       transform-style:preserve-3d;will-change:transform,opacity}
+  .lot .facade{position:absolute;inset:0;border-radius:4px;overflow:hidden;
+               box-shadow:0 40px 80px rgba(0,0,0,.4);background:#222}
+  .lot .facade img{width:100%;height:100%;object-fit:cover;object-position:center 44%;display:block}
+  .lot .veil{position:absolute;inset:0;background:rgba(8,10,14,0);pointer-events:none}
+  /* a soft contact shadow where the facade meets the street */
+  .lot .base{position:absolute;left:-4%;right:-4%;bottom:-26px;height:52px;border-radius:50%;
+             background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,.5),rgba(0,0,0,0) 70%);filter:blur(3px)}
+
+  /* street lamps that rush past = motion cue */
+  .lamp{position:absolute;left:50%;top:50%;width:10px;height:340px;margin-left:-5px;margin-top:-40px;
+        background:linear-gradient(#4a4034,#2c261e);border-radius:4px;transform-style:preserve-3d}
+  .lamp::after{content:"";position:absolute;top:-16px;left:-14px;width:38px;height:26px;border-radius:50%;
+               background:radial-gradient(circle,#ffe9b0,#e8a54b);box-shadow:0 0 40px 14px rgba(232,165,75,.6)}
+
+  /* clean UI nameplate */
+  .nameplate{display:inline-flex;align-items:center;gap:.55em;margin-bottom:.9em;padding:.5em .95em;
+             border-radius:10px;background:rgba(20,16,12,.72);backdrop-filter:blur(8px);
+             border:1px solid rgba(255,255,255,.14);font-weight:800;font-size:clamp(13px,1.9vh,18px);
+             letter-spacing:.2px;box-shadow:0 10px 26px rgba(0,0,0,.35)}
+  .nameplate .pin{width:9px;height:9px;border-radius:50%;background:var(--accent2);box-shadow:0 0 10px var(--accent2)}
+  .nameplate .tr{color:#b9ad9c;font-weight:600;font-size:.82em}
+
+  /* ---- site "screen" that rises in front of the focused shop ---- */
+  .browser{position:absolute;left:50%;top:50%;width:min(62vw,760px);z-index:30;
+           transform:translate(-50%,-46%) scale(.9);opacity:0;will-change:transform,opacity;
+           border-radius:12px;overflow:hidden;background:#fff;
+           box-shadow:0 40px 90px rgba(0,0,0,.55),0 0 0 1px rgba(0,0,0,.15)}
+  .bar{height:34px;background:#e9e4dc;display:flex;align-items:center;gap:6px;padding:0 12px;border-bottom:1px solid #d3ccc0}
+  .bar i{width:11px;height:11px;border-radius:50%;background:#c9c2b6;display:inline-block}
+  .bar i:nth-child(1){background:#ff6159}.bar i:nth-child(2){background:#ffc12f}.bar i:nth-child(3){background:#2ecc57}
+  .bar .url{flex:1;margin-left:8px;height:20px;border-radius:6px;background:#fff;border:1px solid #d8d1c5;
+            font:600 11px var(--sans);color:#8a8172;display:flex;align-items:center;padding:0 10px;overflow:hidden}
+  .frame{position:relative;width:100%;aspect-ratio:16/10;background:#fff;overflow:hidden}
+  .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+  .frame .old{z-index:1}
+  .frame .new{z-index:2}
+  .seam{position:absolute;top:0;bottom:0;width:3px;z-index:3;
+        background:linear-gradient(180deg,#fff,var(--accent2),#fff);
+        box-shadow:0 0 22px 8px rgba(232,165,75,.75);opacity:0}
+
+  /* ---- year HUD ---- */
+  .year{position:absolute;top:4vh;right:4vw;z-index:60;text-align:right;line-height:.9;
+        font-variant-numeric:tabular-nums;text-shadow:0 3px 18px rgba(0,0,0,.5)}
+  .year .n{font-size:clamp(48px,12vh,140px);font-weight:800;letter-spacing:-.03em;
+           background:linear-gradient(180deg,#fff,#ffe0bf);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .year .lab{font-size:clamp(10px,1.5vh,14px);font-weight:700;letter-spacing:4px;text-transform:uppercase;
+             color:#ffd9b0;margin-top:.3em;opacity:.9}
+
+  /* ---- woven story copy ---- */
+  .copy{position:absolute;left:4vw;bottom:6vh;max-width:min(46vw,560px);z-index:60}
+  .copy .kick{font-size:clamp(11px,1.5vh,14px);font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--accent2)}
+  .copy h2{font-size:clamp(22px,4.4vh,46px);font-weight:800;line-height:1.05;margin:.35em 0 .3em;text-shadow:0 3px 20px rgba(0,0,0,.55)}
+  .copy p{font-size:clamp(14px,2.1vh,20px);line-height:1.45;color:#f4eae0;opacity:.94;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+  .tier{display:inline-flex;align-items:center;gap:.5em;margin-top:1em;padding:.5em .9em;border-radius:999px;
+        background:rgba(193,90,60,.92);font-weight:800;font-size:clamp(12px,1.7vh,16px);box-shadow:0 8px 22px rgba(0,0,0,.35)}
+  .tier b{font-size:1.05em}
+
+  /* ---- scroll-woven CTA (jump to the gallery) ---- */
+  .waypoint{position:absolute;right:4vw;bottom:7vh;z-index:65;opacity:0;pointer-events:none;text-align:right;
+            transition:none}
+  .waypoint .wq{font-size:clamp(11px,1.5vh,13px);font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffd9b0;margin-bottom:.6em}
+  .waypoint a{pointer-events:auto;display:inline-flex;align-items:center;gap:.6em;padding:.85em 1.4em;border-radius:999px;
+              background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.35);color:#fff;text-decoration:none;
+              font-weight:800;font-size:clamp(13px,1.9vh,17px);backdrop-filter:blur(8px)}
+  .waypoint a .ar{color:var(--accent2)}
+
+  /* ---- full-stage panels ---- */
+  .panel{position:absolute;inset:0;z-index:80;display:flex;flex-direction:column;align-items:center;justify-content:center;
+         text-align:center;padding:6vh 6vw;opacity:0;pointer-events:none;will-change:opacity}
+  .panel.dark{background:radial-gradient(120% 120% at 50% 20%,#241a14,#0d0b0a)}
+  .panel .big{font-size:clamp(30px,7vh,76px);font-weight:800;line-height:1.02;letter-spacing:-.02em;max-width:16ch}
+  .panel .sub{font-size:clamp(15px,2.4vh,24px);margin-top:1.2em;max-width:44ch;color:#e9dccb;line-height:1.5}
+  .panel .brandline{color:var(--accent2)}
+  .panel .pcta{margin-top:2em;pointer-events:auto}
+  .panel .pcta a{display:inline-block;padding:.85em 1.6em;border-radius:999px;background:var(--accent);color:#fff;
+                 font-weight:800;text-decoration:none;font-size:clamp(14px,2vh,18px);box-shadow:0 12px 30px rgba(193,90,60,.4)}
+  .phones{display:flex;gap:min(3vw,34px);align-items:center;justify-content:center;margin-top:5vh}
+  .phones img{width:min(19vw,174px);border-radius:22px;border:6px solid #14100c;box-shadow:0 30px 60px rgba(0,0,0,.5);background:#000}
+  .phones img:nth-child(2){transform:translateY(-1.6vh) scale(1.05);z-index:2}
+  .cta{margin-top:2em;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+  .cta a{padding:.85em 1.6em;border-radius:999px;font-weight:800;text-decoration:none;font-size:clamp(14px,2vh,18px)}
+  .cta .p{background:var(--accent);color:#fff;box-shadow:0 12px 30px rgba(193,90,60,.4)}
+  .cta .s{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5)}
+  .foot{position:absolute;bottom:3vh;left:0;right:0;text-align:center;color:#b9ad9c;font-size:13px;z-index:81;opacity:0}
+
+  #hint{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:110;color:#fff;
+        font:700 12px var(--sans);letter-spacing:3px;opacity:.85;text-align:center;pointer-events:none}
+  #hint .ch{display:block;font-size:20px;margin-top:2px;animation:bob 1.6s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(6px)}}
+  .rmnote{display:none;position:fixed;left:0;right:0;bottom:18px;text-align:center;z-index:110;color:#ffd9b0;font-weight:700}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<div class="scene" id="scene">
+  <div class="stage" id="stage">
+    <div class="sky"></div><div class="sun"></div><div class="backdrop"></div><div class="haze"></div>
+
+    <!-- the 3D world (built by JS) -->
+    <div class="world" id="world">
+      <div class="ground"><div class="glow"></div><div class="curbL"></div><div class="curbR"></div></div>
+    </div>
+
+    <div class="browser" id="browser">
+      <div class="bar"><i></i><i></i><i></i><span class="url" id="url">http://</span></div>
+      <div class="frame"><img class="old" id="imgOld" alt=""><img class="new" id="imgNew" alt=""><div class="seam" id="seam"></div></div>
+    </div>
+
+    <div class="year" id="yearHud"><div class="n" id="yearN">1998</div><div class="lab" id="yearLab">on the web</div></div>
+
+    <div class="copy" id="copy"><div class="nameplate" id="cname"><span class="pin"></span><span id="cnameT"></span><span class="tr" id="cnameR"></span></div><div class="kick" id="ck"></div><h2 id="ch"></h2><p id="cp"></p><span class="tier" id="ctier" style="display:none"></span></div>
+
+    <div class="waypoint" id="waypoint"><div class="wq">Like what you see?</div><a href="gallery.html">Browse the sample sites <span class="ar">→</span></a></div>
+
+    <div class="panel dark" id="pIntro">
+      <div class="big">A walk down Main Street<br>is a walk through <span class="brandline">web history.</span></div>
+      <div class="sub">Every shop on the block has a story. We bring each one online — keeping the character, losing the clutter.</div>
+    </div>
+    <div class="panel dark" id="pTT">
+      <div class="big">We build <span class="brandline">apps</span>, too.</div>
+      <div class="sub"><b>Track the Track</b> — real-time DC Metro predictions. No login. No ads. No personal data.</div>
+      <div class="phones">
+        <img src="tt_PredictionBasic.png" alt="Track the Track">
+        <img src="tt_HomeScreen.png" alt="Track the Track home">
+        <img src="tt_PredictionAdvanced_2.png" alt="Track the Track advanced">
+      </div>
+      <div class="pcta"><a href="gallery.html">See the sample sites →</a></div>
+    </div>
+    <div class="panel dark" id="pContact">
+      <div class="big">Let's build something<br><span class="brandline">worth looking at.</span></div>
+      <div class="sub">A small team building things that matter locally — for the DMV. Built for people, not corporations.</div>
+      <div class="cta">
+        <a class="p" href="mailto:hello@vibecodigital.com">hello@vibecodigital.com</a>
+        <a class="s" href="gallery.html">Browse the portfolio</a>
+      </div>
+    </div>
+    <div class="foot" id="foot">VibeCo Digital — Launch · Grow · Signature</div>
+    <div class="rmnote" id="rmnote">Static preview — enable motion to walk the street.</div>
+  </div>
+</div>
+
+<div id="hint">SCROLL TO WALK THE STREET<span class="ch">↓</span></div>
+
+<script>
+const SHOPS = [
+  { img:'sunrise_signed.png',  name:'Sunrise Bakery & Café', trade:'Bakery',      year:1998, era:'GeoCities era',
+    old:'site0_old.png', new:'site0_new.png', url:'sunrisebakery.geocities.com',
+    kick:'This is what we do', h:'We give Main Street a home online.',
+    p:'A neighborhood bakery with a hand-me-down website from 1998. We keep the soul and rebuild the rest.', tier:null },
+  { img:'rollingfresh_signed.png', name:'Rolling Fresh',     trade:'Food Truck',  year:2003, era:'table-layout era',
+    old:'site1_old.png', new:'site1_new.png', url:'rollingfresh.com/index.html',
+    kick:'Launch', h:'Online in days, not months.',
+    p:'A clean, fast, mobile-first site — today’s stop, today’s menu, one tap away.', tier:'LAUNCH · a site that just works' },
+  { img:'sharp_signed.png',    name:'Sharp & Co. Barbers',   trade:'Barber Shop', year:2008, era:'Web 2.0 era',
+    old:'site2_old.png', new:'site2_new.png', url:'sharpandco.net',
+    kick:'Grow', h:'More than a page — a system.',
+    p:'Booking, reviews, and insights that turn first-timers into regulars.', tier:'GROW · site + tools to grow' },
+  { img:'crisp_signed.png',    name:'Crisp Cleaners',        trade:'Dry Cleaners',year:2013, era:'Bootstrap era',
+    old:'site3_old.png', new:'site3_new.png', url:'crispcleaners.com',
+    kick:'Why we do it', h:'Built for people, not corporations.',
+    p:'A small team building things that matter locally — for the DMV. Privacy-first, no bloat.', tier:null },
+  { img:'store_restaurant_signed.png',name:'Osteria Nonna',  trade:'Restaurant',  year:2017, era:'template era',
+    old:'site4_old.png', new:'site4_new.png', url:'osterianonna.com',
+    kick:'Signature', h:'An experience, not a template.',
+    p:'Immersive, one-of-a-kind sites built to feel like walking through your front door.', tier:'SIGNATURE · immersive & custom' },
+];
+const N = SHOPS.length;
+
+const T_INTRO_END = 0.055, T_STREET_END = 0.80, T_TT_START = 0.815, T_TT_END = 0.905, T_CONTACT_START = 0.925;
+const SEG = (T_STREET_END - T_INTRO_END) / N;
+
+/* ---- 3D street geometry (px) ---- */
+const GAP = 1150;       // spacing between shops along the street (Z)
+const BASE = 560;       // camera→focused-shop distance
+const SIDE = 120;       // small L/R stagger so it reads as a street, not a tunnel
+const YAW = 7;          // gentle facade turn (deg)
+
+/* ---- build the world ---- */
+const world = document.getElementById('world');
+SHOPS.forEach((s,i)=>{
+  const side = (i%2===0)? -1 : 1;
+  const lot = document.createElement('div');
+  lot.className='lot';
+  lot.dataset.z = -(i*GAP + BASE);          // resting Z (before camera dolly)
+  lot.dataset.x = side*SIDE;
+  lot.dataset.yaw = -side*YAW;
+  lot.innerHTML = '<div class="facade"><img src="'+s.img+'"><div class="veil"></div></div><div class="base"></div>';
+  world.appendChild(lot);
+  // a lamp just before each shop
+  const lamp=document.createElement('div'); lamp.className='lamp';
+  lamp.dataset.z = -((i-0.5)*GAP + BASE); lamp.dataset.x = -side*430;
+  world.appendChild(lamp);
+});
+const lots = [...document.querySelectorAll('.lot')];
+const lamps = [...document.querySelectorAll('.lamp')];
+const veils = [...document.querySelectorAll('.veil')];
+
+/* ---- refs ---- */
+const stage=document.getElementById('stage'), scene=document.getElementById('scene');
+const browser=document.getElementById('browser'), imgOld=document.getElementById('imgOld'),
+      imgNew=document.getElementById('imgNew'), seam=document.getElementById('seam'), urlEl=document.getElementById('url');
+const yearN=document.getElementById('yearN'), yearLab=document.getElementById('yearLab'), yearHud=document.getElementById('yearHud');
+const copy=document.getElementById('copy'), ck=document.getElementById('ck'), ch=document.getElementById('ch'),
+      cp=document.getElementById('cp'), ctier=document.getElementById('ctier'),
+      cnameT=document.getElementById('cnameT'), cnameR=document.getElementById('cnameR');
+const pIntro=document.getElementById('pIntro'), pTT=document.getElementById('pTT'), pContact=document.getElementById('pContact'),
+      foot=document.getElementById('foot'), prog=document.getElementById('prog'), hint=document.getElementById('hint'),
+      waypoint=document.getElementById('waypoint');
+
+const clamp=(v,a,b)=>v<a?a:(v>b?b:v);
+const inv=(v,a,b)=> b===a?0:clamp((v-a)/(b-a),0,1);
+const lerp=(a,b,t)=>a+(b-a)*t;
+const smooth=t=> t*t*(3-2*t);
+const easeIO=t=> t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+let curLoaded=-1;
+function loadSite(i){ if(curLoaded===i)return; curLoaded=i; imgOld.src=SHOPS[i].old; imgNew.src=SHOPS[i].new; urlEl.textContent=SHOPS[i].url; }
+
+function render(t){
+  prog.style.width=(t*100).toFixed(2)+'%';
+
+  const introOp = 1 - inv(t,0.02,T_INTRO_END);
+  pIntro.style.opacity = introOp.toFixed(3);
+  const ttOp = Math.min(inv(t,T_TT_START,T_TT_START+0.03), 1-inv(t,T_TT_END-0.02,T_TT_END));
+  pTT.style.opacity = clamp(ttOp,0,1).toFixed(3);
+  const coOp = inv(t,T_CONTACT_START,T_CONTACT_START+0.04);
+  pContact.style.opacity = coOp.toFixed(3); foot.style.opacity = coOp.toFixed(3);
+  hint.style.opacity = (0.85*(1-inv(t,0.01,0.05))*(1-coOp)).toFixed(3);
+  const dim = Math.max(introOp, clamp(ttOp,0,1), coOp);
+
+  let f=N-1, active=N-1, mp=1, browserAmt=0, storyAmt=0, yearFrac=1;
+  if(t < T_INTRO_END){ f=0; active=0; mp=0; }
+  else if(t <= T_STREET_END){
+    const local=(t-T_INTRO_END);
+    const i=clamp(Math.floor(local/SEG),0,N-1);
+    const u=clamp((local-i*SEG)/SEG,0,1);
+    const gin=smooth(inv(u,0.0,0.34));
+    f=(i-1)+gin; if(i===0) f=0;
+    active=i; yearFrac=(i===0)?1:gin;
+    browserAmt=smooth(inv(u,0.30,0.44))*(1-smooth(inv(u,0.88,1.0)));
+    mp=easeIO(inv(u,0.44,0.80));
+    storyAmt=smooth(inv(u,0.36,0.48))*(1-smooth(inv(u,0.90,1.0)));
+    loadSite(i);
+  } else {
+    f=N-1; active=N-1; mp=1;
+    browserAmt=1-inv(t,T_STREET_END,T_TT_START);
+    storyAmt=1-inv(t,T_STREET_END,T_TT_START-0.02);
+    loadSite(N-1);
+  }
+
+  /* ---------- WALK: dolly the camera forward down the street ---------- */
+  const camZ = f*GAP;                       // world moves toward camera as we advance
+  world.style.transform = 'translateZ('+camZ.toFixed(1)+'px)';
+
+  /* ---------- per-lot base transform + depth-based light ---------- */
+  for(let i=0;i<N;i++){
+    const bz=+lots[i].dataset.z, bx=+lots[i].dataset.x, yaw=+lots[i].dataset.yaw;
+    lots[i].style.transform='translate3d('+bx+'px,0,'+bz+'px) rotateY('+yaw+'deg)';
+    const zc = bz + camZ;                   // camera-space Z (negative = ahead)
+    const passed = zc > -30;                // at/behind the camera
+    const depthFade = 1 - inv(-zc, GAP*2.4, GAP*3.4);   // far shops melt into haze
+    lots[i].style.opacity = (passed?0:depthFade).toFixed(3);
+    const df = Math.abs(i-f);               // focus distance
+    const shade = smooth(inv(df,0.15,1.15));
+    veils[i].style.background='rgba(8,10,14,'+(0.55*shade).toFixed(3)+')';
+    lots[i].querySelector('.facade img').style.filter=
+       'saturate('+lerp(1.0,0.72,shade).toFixed(2)+') brightness('+lerp(1.05,0.78,shade).toFixed(2)+')';
+  }
+  for(let i=0;i<lamps.length;i++){
+    const bz=+lamps[i].dataset.z, bx=+lamps[i].dataset.x;
+    lamps[i].style.transform='translate3d('+bx+'px,0,'+bz+'px)';
+    const zc=bz+camZ;
+    lamps[i].style.opacity=(zc>60?0:(1-inv(-zc,GAP*2.6,GAP*3.4))).toFixed(3);
+  }
+
+  /* ---------- site screen ---------- */
+  browser.style.opacity=(browserAmt*(1-dim)).toFixed(3);
+  const bs=lerp(0.9,1.0,browserAmt);
+  browser.style.transform='translate(-50%,'+(-46-6*browserAmt).toFixed(1)+'%) scale('+bs.toFixed(3)+')';
+  const wipe=(mp*118-9);
+  imgNew.style.clipPath='inset(0 '+clamp(100-wipe,0,100).toFixed(2)+'% 0 0)';
+  seam.style.left=clamp(wipe,0,100).toFixed(2)+'%';
+  seam.style.opacity=(browserAmt*(mp>0.005&&mp<0.995?1:0)).toFixed(2);
+
+  /* ---------- year HUD ---------- */
+  const s=SHOPS[active];
+  const prevYear=active>0?SHOPS[active-1].year:s.year;
+  yearN.textContent=Math.round(lerp(prevYear,s.year,yearFrac));
+  yearLab.textContent=(mp>0.6? s.era+' → today' : s.era);
+  yearHud.style.opacity=((1-dim)*(t>T_INTRO_END-0.01?1:0)).toFixed(2);
+
+  /* ---------- story copy ---------- */
+  cnameT.textContent=s.name; cnameR.textContent='· '+s.trade;
+  ck.textContent=s.kick; ch.textContent=s.h; cp.textContent=s.p;
+  if(s.tier){ ctier.style.display='inline-flex'; ctier.innerHTML='<b>'+s.tier.split(' · ')[0]+'</b> · '+s.tier.split(' · ')[1]; }
+  else ctier.style.display='none';
+  copy.style.opacity=(storyAmt*(1-dim)).toFixed(3);
+  copy.style.transform='translateY('+lerp(24,0,storyAmt).toFixed(1)+'px)';
+
+  /* ---------- woven CTA: appears mid-walk (after ~2 shops), hides for panels ---------- */
+  const wpAmt = inv(t,0.30,0.34)*(1-inv(t,T_STREET_END-0.02,T_STREET_END));
+  waypoint.style.opacity=(wpAmt*(1-dim)).toFixed(3);
+  waypoint.style.pointerEvents = (wpAmt>0.5 && dim<0.2)?'auto':'none';
+}
+
+const params=new URLSearchParams(location.search);
+const forceT=params.get('t');
+const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const STATIC=params.get('static')==='1';
+const FOLLOW=reduce?0.14:0.075;
+
+if(forceT!==null){
+  const t=clamp(parseFloat(forceT),0,1);
+  loadSite(clamp(Math.floor((t-T_INTRO_END)/SEG),0,N-1));
+  setTimeout(()=>render(t),80); render(t);
+} else if(STATIC){
+  document.getElementById('hint').style.display='none';
+  document.getElementById('rmnote').style.display='block';
+  loadSite(3); render(T_INTRO_END+3.6*SEG);
+} else {
+  let target=0,cur=0,raf=0;
+  function frame(){
+    cur+=(target-cur)*FOLLOW;
+    if(Math.abs(target-cur)<0.00008){cur=target;render(cur);raf=0;return;}
+    render(cur); raf=requestAnimationFrame(frame);
+  }
+  function onScroll(){
+    const h=scene.offsetHeight-window.innerHeight;
+    target=clamp((-scene.getBoundingClientRect().top)/h,0,1);
+    if(!raf)raf=requestAnimationFrame(frame);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  render(0);
+  imgNew.addEventListener('load',()=>render(cur));
+  imgOld.addEventListener('load',()=>render(cur));
+}
+</script>
+</body>
+</html>

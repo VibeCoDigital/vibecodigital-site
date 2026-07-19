@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VibeCo — the rebuilds (portfolio)</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--accent:#c15a3c;--gold:#e8a54b;--ink:#1a1410;--paper:#faf5ec}
+  body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+       background:#f3ece0;color:var(--ink);-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+
+  header{max-width:1200px;margin:0 auto;padding:54px 28px 10px;text-align:center}
+  header .lock{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+  header .lock .mk{width:26px;height:26px;border-radius:8px;background:radial-gradient(circle at 34% 28%,var(--gold),var(--accent))}
+  header h1{font-family:Georgia,serif;font-size:clamp(30px,5vw,52px);line-height:1.05;margin:18px 0 12px}
+  header h1 em{color:var(--accent);font-style:normal}
+  header p{color:#6b5d51;font-size:clamp(15px,2.2vw,19px);max-width:60ch;margin:0 auto;line-height:1.5}
+  header .hint{margin-top:16px;font-size:13px;color:#8a7c6e;font-weight:600}
+  header .hint b{color:var(--accent)}
+
+  .grid{max-width:1200px;margin:26px auto 70px;padding:0 28px;
+        display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:26px}
+  .card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 18px 44px rgba(60,40,20,.12);
+        border:1px solid rgba(0,0,0,.06);display:flex;flex-direction:column}
+  .badge{position:absolute;top:12px;right:12px;z-index:6;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+         padding:5px 11px;border-radius:999px;color:#fff;background:rgba(26,20,16,.72);backdrop-filter:blur(4px)}
+  .badge.launch{background:rgba(46,120,90,.92)} .badge.grow{background:rgba(47,111,176,.92)} .badge.signature{background:rgba(193,90,60,.95)}
+
+  /* before/after comparison slider */
+  .cmp{position:relative;aspect-ratio:16/10;overflow:hidden;background:#eee;cursor:ew-resize;user-select:none}
+  .cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;pointer-events:none}
+  .cmp .after{z-index:1}
+  .cmp .before{z-index:2;clip-path:inset(0 0 0 var(--x,50%))}  /* old shown to the RIGHT of handle */
+  .cmp .lab{position:absolute;bottom:10px;z-index:4;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+            color:#fff;background:rgba(20,16,12,.66);padding:4px 9px;border-radius:6px;backdrop-filter:blur(4px)}
+  .cmp .lab.l{left:10px} .cmp .lab.r{right:10px}
+  .cmp .hdl{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;z-index:5;background:#fff;box-shadow:0 0 10px rgba(0,0,0,.4)}
+  .cmp .hdl::after{content:"⟺";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+                   width:34px;height:34px;border-radius:50%;background:#fff;color:var(--accent);font-size:15px;
+                   display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+
+  .meta{padding:15px 18px 18px;display:flex;align-items:center;gap:12px}
+  .meta .txt{flex:1}
+  .meta h3{font-size:18px;line-height:1.1}
+  .meta .sub{color:#8a7c6e;font-size:13px;margin-top:3px}
+  .meta .yr{font-variant-numeric:tabular-nums;font-weight:800;color:#c9b8a5}
+  .meta .open{background:var(--ink);color:#fff;font-weight:700;font-size:13px;padding:9px 15px;border-radius:10px;white-space:nowrap}
+  .meta .open:hover{background:var(--accent)}
+
+  footer{text-align:center;padding:0 28px 70px;color:#8a7c6e;font-size:14px}
+  footer a{color:var(--accent);font-weight:700}
+
+  /* full-view overlay */
+  .ov{position:fixed;inset:0;z-index:50;background:rgba(20,14,10,.82);backdrop-filter:blur(6px);
+      display:none;align-items:center;justify-content:center;padding:4vh 4vw}
+  .ov.on{display:flex}
+  .ov .fr{position:relative;width:min(1280px,92vw);aspect-ratio:16/10;max-height:90vh;
+          border-radius:12px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.6);background:#fff}
+  .ov #ovimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:block;z-index:1}
+  .ov iframe{position:absolute;inset:0;width:1280px;height:800px;border:0;transform-origin:top left;z-index:2;display:none}
+  .ov.dive iframe{display:block}
+  .ov.dive #ovimg{visibility:hidden}
+  .ov .close{position:absolute;top:12px;right:12px;z-index:6;color:#fff;font-weight:700;font-size:14px;cursor:pointer;
+             background:rgba(20,14,10,.6);border:1px solid rgba(255,255,255,.3);padding:8px 15px;border-radius:999px;backdrop-filter:blur(6px)}
+  .ov .tabs{position:absolute;top:12px;left:12px;z-index:6;display:flex;gap:8px}
+  .ov .tabs button{background:rgba(20,14,10,.55);border:1px solid rgba(255,255,255,.3);color:#fff;
+                   font-weight:700;font-size:13px;padding:8px 14px;border-radius:999px;cursor:pointer;backdrop-filter:blur(6px)}
+  .ov .tabs button.on{background:#fff;color:var(--ink)}
+  .ov.dive .tabs{display:none}
+  /* deep-dive bar over the high-res still */
+  .ov .deepbar{position:absolute;left:0;right:0;bottom:0;z-index:4;display:flex;align-items:center;justify-content:space-between;
+               gap:14px;padding:16px 20px;background:linear-gradient(0deg,rgba(12,9,8,.82),rgba(12,9,8,0));color:#fff}
+  .ov.dive .deepbar{display:none}
+  .ov .deepbar #deeptitle{font-weight:800;font-size:clamp(15px,2vw,20px)}
+  .ov .deep{background:var(--accent);color:#fff;font-weight:800;font-size:14px;padding:11px 20px;border-radius:999px;cursor:pointer;white-space:nowrap}
+  .ov .back{position:absolute;top:12px;left:12px;z-index:6;display:none;color:#fff;font-weight:700;font-size:14px;cursor:pointer;
+            background:rgba(20,14,10,.6);border:1px solid rgba(255,255,255,.3);padding:8px 16px;border-radius:999px;backdrop-filter:blur(6px)}
+  .ov.dive .back{display:block}
+</style>
+</head>
+<body>
+<header>
+  <div class="lock"><span class="mk"></span>VibeCo Digital</div>
+  <h1>One block. <em>Five rebuilds.</em></h1>
+  <p>Every shop on Main Street has a story — and an old website that stopped telling it. Here's each one, reborn. Drag any slider to watch the years fall away.</p>
+  <div class="hint">↔ <b>Drag</b> to compare then &amp; now &nbsp;·&nbsp; <b>Open</b> to explore the full rebuild</div>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<footer>Want to see it as a walk down the street? <a href="street.html">Take the full tour →</a></footer>
+
+<div class="ov" id="ov">
+  <div class="fr">
+    <div class="tabs" id="tabs"><button data-m="new" class="on">Rebuilt site</button><button data-m="old">Original</button></div>
+    <div class="close" id="close">✕ Close</div>
+    <img id="ovimg" alt="">
+    <iframe id="ovf" src="about:blank"></iframe>
+    <div class="deepbar" id="deepbar"><span id="deeptitle"></span><a class="deep" id="deep">Deep dive into the live site →</a></div>
+    <div class="back" id="back">← Back to preview</div>
+  </div>
+</div>
+
+<script>
+var BIZ=[
+  {i:0,name:"Sunrise Bakery & Café",trade:"Bakery",year:1998,tier:"launch"},
+  {i:1,name:"Rolling Fresh",trade:"Food Truck",year:2003,tier:"launch"},
+  {i:2,name:"Sharp & Co. Barbers",trade:"Barber Shop",year:2008,tier:"grow"},
+  {i:3,name:"Crisp Cleaners",trade:"Dry Cleaners",year:2013,tier:"grow"},
+  {i:4,name:"Osteria Nonna",trade:"Restaurant",year:2017,tier:"signature"}
+];
+var TIER={launch:"Launch",grow:"Grow",signature:"Signature"};
+var grid=document.getElementById('grid');
+BIZ.forEach(function(b){
+  var c=document.createElement('div'); c.className='card';
+  c.innerHTML=
+    '<div style="position:relative">'+
+      '<span class="badge '+b.tier+'">'+TIER[b.tier]+'</span>'+
+      '<div class="cmp" data-i="'+b.i+'" style="--x:50%">'+
+        '<img class="after" src="site'+b.i+'_new.png" alt="">'+
+        '<img class="before" src="site'+b.i+'_old.png" alt="">'+
+        '<span class="lab l">Today</span><span class="lab r">'+b.year+'</span>'+
+        '<div class="hdl"></div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="meta"><div class="txt"><h3>'+b.name+'</h3><div class="sub">'+b.trade+' · rebuilt from '+b.year+'</div></div>'+
+      '<a class="open" data-i="'+b.i+'">Open →</a></div>';
+  grid.appendChild(c);
+});
+
+/* comparison slider drag */
+function bindSlider(cmp){
+  function setX(clientX){
+    var r=cmp.getBoundingClientRect();
+    var pct=Math.max(2,Math.min(98,((clientX-r.left)/r.width)*100));
+    cmp.style.setProperty('--x',pct+'%');
+  }
+  var drag=false;
+  cmp.addEventListener('mousedown',function(e){drag=true;setX(e.clientX);});
+  window.addEventListener('mousemove',function(e){if(drag)setX(e.clientX);});
+  window.addEventListener('mouseup',function(){drag=false;});
+  cmp.addEventListener('mousemove',function(e){if(!drag && (e.buttons&1)===0){/*hover preview*/} });
+  cmp.addEventListener('touchstart',function(e){setX(e.touches[0].clientX);},{passive:true});
+  cmp.addEventListener('touchmove',function(e){setX(e.touches[0].clientX);},{passive:true});
+}
+[].forEach.call(document.querySelectorAll('.cmp'),bindSlider);
+
+/* full-view overlay — STEP 1: high-res still (flip rebuilt/original) → STEP 2: deep dive into live site */
+var ov=document.getElementById('ov'), ovf=document.getElementById('ovf'), ovimg=document.getElementById('ovimg'),
+    deeptitle=document.getElementById('deeptitle'), curI=0, curM='new';
+function nameOf(i){var b=BIZ.filter(function(x){return x.i===i;})[0];return b?b.name:'';}
+function scaleFrame(){ var fr=ov.querySelector('.fr'); var s=fr.clientWidth/1280; ovf.style.transform='scale('+s+')'; ovf.style.height=(fr.clientHeight/s)+'px'; }
+function showStill(){ ovimg.src = (curM==='old' ? 'site'+curI+'_old.png' : 'site'+curI+'_new.png'); }
+function setTabs(){ [].forEach.call(ov.querySelectorAll('.tabs button'),function(x){x.classList.toggle('on',x.dataset.m===curM);}); }
+function openBiz(i){
+  curI=i; curM='new'; setTabs();
+  deeptitle.textContent = nameOf(i)+' — the rebuild';
+  showStill();
+  ov.classList.remove('dive'); ovf.src='about:blank';
+  ov.classList.add('on');
+}
+function close(){ ov.classList.remove('on','dive'); ovf.src='about:blank'; }
+[].forEach.call(document.querySelectorAll('.open'),function(a){ a.addEventListener('click',function(){openBiz(+a.dataset.i);}); });
+document.getElementById('close').addEventListener('click',close);
+ov.addEventListener('click',function(e){if(e.target===ov)close();});
+/* tabs flip the HIGH-RES STILL between rebuilt / original */
+[].forEach.call(ov.querySelectorAll('.tabs button'),function(btn){
+  btn.addEventListener('click',function(){ curM=btn.dataset.m; setTabs(); showStill(); });
+});
+/* deep dive → load the live interactive site */
+document.getElementById('deep').addEventListener('click',function(){
+  ovf.src='modern.html?biz='+curI; ov.classList.add('dive'); setTimeout(scaleFrame,40);
+});
+document.getElementById('back').addEventListener('click',function(){ ov.classList.remove('dive'); ovf.src='about:blank'; });
+window.addEventListener('resize',function(){if(ov.classList.contains('dive'))scaleFrame();});
+/* debug: ?open=<i> opens the still; add &dive=1 to jump to the live site */
+(function(){var q=new URLSearchParams(location.search);var op=q.get('open');
+ if(op!==null){openBiz(+op); if(q.get('dive')==='1'){document.getElementById('deep').click();}}})();
+</script>
+</body>
+</html>

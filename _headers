@@ -1,3 +1,6 @@
 /demo/*
   Access-Control-Allow-Origin: *
   X-Robots-Tag: noindex
+
+/preview/*
+  X-Robots-Tag: noindex

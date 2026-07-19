@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VibeCo — bespoke rebuild mockups</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%}
+  body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#241c16;overflow:hidden}
+  .site{position:absolute;inset:0;overflow:hidden}
+  a{text-decoration:none;color:inherit}
+  img{display:block;max-width:100%}
+  .btn{display:inline-flex;align-items:center;gap:.5em;border:none;cursor:pointer;font-weight:800;border-radius:999px}
+
+  /* ============ 1. SUNRISE BAKERY — warm morning, hand-lettered ============ */
+  .bake{background:#f7efe1;color:#3a2b1e;
+        --script:"Segoe Script","Brush Script MT","Bradley Hand",cursive;
+        --serif:Georgia,"Times New Roman",serif}
+  .bake .band{position:absolute;top:0;left:0;right:0;height:56%;overflow:hidden}
+  .bake .band img{width:100%;height:100%;object-fit:cover;object-position:center 55%}
+  .bake .band .tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(58,32,16,.28),rgba(247,239,225,.05) 45%,rgba(247,239,225,1) 99%)}
+  .bake .sun{position:absolute;top:34px;right:56px;z-index:3;width:70px;height:70px;border-radius:50%;
+             background:radial-gradient(circle at 50% 55%,#ffd27a,#f0a24b);box-shadow:0 0 46px 12px rgba(240,162,75,.5)}
+  .bake .brand{position:absolute;top:44px;left:56px;z-index:3;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+  .bake .brand .s{font-family:var(--script);font-size:58px;line-height:.8;color:#ffe6bf}
+  .bake .brand .t{font-family:var(--serif);letter-spacing:5px;text-transform:uppercase;font-size:15px;margin-top:6px;font-weight:700}
+  .bake .pitch{position:absolute;top:40%;left:56px;z-index:3;max-width:44%}
+  .bake .pitch h1{font-family:var(--serif);font-size:46px;line-height:1.02;color:#fff;text-shadow:0 3px 20px rgba(0,0,0,.5)}
+  .bake .pitch .cta{margin-top:18px}
+  .bake .pitch .cta .btn{background:#c15a3c;color:#fff;padding:14px 26px;font-size:15px;box-shadow:0 14px 30px rgba(140,60,30,.35)}
+  .bake .pitch .cta .g{background:rgba(255,255,255,.9);color:#8a4a2f;margin-left:8px}
+  /* café A-frame board */
+  .bake .board{position:absolute;left:56px;right:56px;bottom:40px;z-index:3;
+               background:#2b1d13;border:6px solid #6b4a2e;border-radius:8px;padding:20px 26px;
+               box-shadow:0 22px 50px rgba(0,0,0,.3)}
+  .bake .board .bh{font-family:var(--script);color:#ffcf8e;font-size:30px;line-height:.9;margin-bottom:14px}
+  .bake .board .items{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 34px}
+  .bake .board .it{display:flex;align-items:baseline;color:#f3e6d2;font-family:var(--serif)}
+  .bake .board .it .n{font-size:16px} .bake .board .it .d{flex:1;border-bottom:1px dotted rgba(243,230,210,.4);margin:0 8px;transform:translateY(-4px)}
+  .bake .board .it .p{color:#ffcf8e;font-weight:700}
+  .bake .board .foot{margin-top:14px;color:#c9b295;font-size:13px;font-family:ui-sans-serif,system-ui}
+  .bake .board .foot b{color:#ffcf8e}
+
+  /* ============ 2. ROLLING FRESH — bold, playful, live map ============ */
+  .truck{background:#fff7ea;color:#241c16;
+         --round:"Arial Rounded MT Bold","Segoe UI",system-ui,sans-serif}
+  .truck .hdr{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;align-items:center;gap:14px;padding:22px 40px}
+  .truck .hdr .lg{font-family:var(--round);font-weight:800;font-size:26px;color:#e04b3a}
+  .truck .hdr .sp{flex:1}
+  .truck .hdr .open{display:inline-flex;align-items:center;gap:8px;background:#1c9d5c;color:#fff;font-family:var(--round);
+                    font-weight:800;padding:8px 16px;border-radius:999px;font-size:14px}
+  .truck .hdr .open .d{width:9px;height:9px;border-radius:50%;background:#bcffd8;box-shadow:0 0 0 0 rgba(188,255,216,.8);animation:pulse 1.6s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 10px rgba(188,255,216,0)}}
+  .truck .hdr .ord{background:#e04b3a;color:#fff;font-family:var(--round);font-weight:800;padding:10px 20px;border-radius:999px;font-size:15px}
+  /* the map hero */
+  .truck .map{position:absolute;left:40px;top:88px;bottom:34px;width:56%;border-radius:20px;overflow:hidden;
+              background:#e8e6df;box-shadow:0 20px 50px rgba(0,0,0,.14);border:5px solid #fff}
+  .truck .map svg{position:absolute;inset:0;width:100%;height:100%}
+  .truck .map .pin{position:absolute;left:52%;top:44%;transform:translate(-50%,-100%);z-index:3;text-align:center}
+  .truck .map .pin .dot{width:26px;height:26px;border-radius:50% 50% 50% 0;background:#e04b3a;transform:rotate(-45deg);
+                        margin:0 auto;box-shadow:0 8px 16px rgba(224,75,58,.5);border:3px solid #fff}
+  .truck .map .pin .lb{margin-top:12px;background:#241c16;color:#fff;font-family:var(--round);font-weight:700;
+                       font-size:13px;padding:7px 13px;border-radius:10px;white-space:nowrap}
+  .truck .map .card{position:absolute;left:18px;bottom:18px;z-index:3;background:#fff;border-radius:14px;padding:12px;
+                    display:flex;gap:12px;align-items:center;box-shadow:0 12px 26px rgba(0,0,0,.2);max-width:74%}
+  .truck .map .card img{width:96px;height:70px;object-fit:cover;border-radius:9px}
+  .truck .map .card .tx b{font-family:var(--round);font-size:15px} .truck .map .card .tx p{font-size:12.5px;color:#6b5d51;margin-top:2px}
+  /* receipt menu on the right */
+  .truck .receipt{position:absolute;right:40px;top:100px;width:33%;background:#fff;padding:22px 22px 28px;
+                  font-family:"Consolas","Courier New",monospace;color:#241c16;
+                  box-shadow:0 16px 40px rgba(0,0,0,.16);
+                  -webkit-mask:radial-gradient(circle 8px at 8px 100%,transparent 96%,#000 100%) 0 0/16px 100% repeat-x;}
+  .truck .receipt h3{font-family:var(--round);font-size:18px;text-align:center;margin-bottom:4px}
+  .truck .receipt .sb{text-align:center;font-size:11px;color:#8a7c6e;border-bottom:2px dashed #d8cfc0;padding-bottom:12px;margin-bottom:12px}
+  .truck .receipt .r{display:flex;justify-content:space-between;font-size:13.5px;margin:9px 0}
+  .truck .receipt .r .p{font-weight:700}
+  .truck .receipt .r small{display:block;color:#8a7c6e;font-size:11px}
+  .truck .receipt .tot{border-top:2px dashed #d8cfc0;margin-top:12px;padding-top:12px;font-family:var(--round);font-weight:800;
+                       display:flex;justify-content:space-between;color:#e04b3a}
+  .truck .week{position:absolute;right:40px;bottom:34px;width:33%;background:#241c16;color:#fff7ea;border-radius:16px;padding:16px 20px}
+  .truck .week h4{font-family:var(--round);font-size:14px;color:#f2b134;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+  .truck .week .d{display:flex;justify-content:space-between;font-size:13.5px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+  .truck .week .d:last-child{border:none} .truck .week .d b{color:#7dd8a0}
+
+  /* ============ 3. SHARP & CO — dark vintage barbershop ============ */
+  .barb{background:#181a1d;color:#ece4d6;
+        --cond:"Franklin Gothic Medium","Arial Narrow Bold","Arial Narrow",system-ui,sans-serif;
+        --ser:"Palatino Linotype","Book Antiqua",Palatino,serif;--brass:#c99a3f}
+  .barb .pole{position:absolute;top:0;bottom:0;left:0;width:12px;z-index:5;
+              background:repeating-linear-gradient(135deg,#b5322f 0 12px,#f2efe8 12px 24px,#2f4f8c 24px 36px)}
+  .barb .photo{position:absolute;top:0;right:0;bottom:0;width:46%;z-index:1}
+  .barb .photo img{width:100%;height:100%;object-fit:cover}
+  .barb .photo .fade{position:absolute;inset:0;background:linear-gradient(90deg,#181a1d 0%,rgba(24,26,29,.2) 30%,rgba(24,26,29,0) 60%)}
+  .barb .nav{position:absolute;top:0;left:12px;right:0;z-index:4;display:flex;align-items:center;gap:20px;padding:26px 44px}
+  .barb .nav .lg{font-family:var(--ser);font-size:20px;letter-spacing:.5px;color:#fff}
+  .barb .nav .lg b{color:var(--brass)}
+  .barb .nav .sp{flex:1}.barb .nav a{color:rgba(236,228,214,.75);font-size:12px;letter-spacing:2px;text-transform:uppercase}
+  .barb .hero{position:absolute;left:56px;top:150px;z-index:4;max-width:52%}
+  .barb .hero .kick{color:var(--brass);letter-spacing:4px;text-transform:uppercase;font-size:13px;font-family:var(--ser)}
+  .barb .hero h1{font-family:var(--cond);font-weight:700;font-size:96px;line-height:.86;text-transform:uppercase;letter-spacing:1px;margin:12px 0}
+  .barb .hero h1 em{color:var(--brass);font-style:normal}
+  .barb .hero p{font-family:var(--ser);color:rgba(236,228,214,.82);font-size:16px;max-width:34ch;line-height:1.5}
+  /* booking module */
+  .barb .book{position:absolute;left:56px;bottom:46px;z-index:4;width:60%;
+              background:rgba(12,13,15,.72);border:1px solid rgba(201,154,63,.4);border-radius:6px;padding:18px 20px}
+  .barb .book .bt{font-family:var(--cond);text-transform:uppercase;letter-spacing:2px;font-size:15px;color:#fff;margin-bottom:12px;
+                  display:flex;justify-content:space-between}
+  .barb .book .bt span{color:var(--brass);font-family:var(--ser);letter-spacing:0;text-transform:none;font-size:13px}
+  .barb .book .slots{display:flex;gap:9px;flex-wrap:wrap}
+  .barb .book .sl{border:1px solid rgba(236,228,214,.28);border-radius:5px;padding:8px 14px;font-size:13.5px;font-family:var(--ser)}
+  .barb .book .sl.on{background:var(--brass);color:#20170a;border-color:transparent;font-weight:700}
+  .barb .book .who{margin-top:12px;font-family:var(--ser);font-size:13px;color:rgba(236,228,214,.7)}
+  .barb .book .who b{color:var(--brass)}
+  /* price menu top-right over photo */
+  .barb .rates{position:absolute;right:44px;bottom:46px;z-index:4;width:30%;
+               background:rgba(12,13,15,.55);border-top:2px solid var(--brass);padding:16px 18px}
+  .barb .rates .r{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--ser);padding:8px 0;border-bottom:1px solid rgba(236,228,214,.12)}
+  .barb .rates .r .n{font-size:15px}.barb .rates .r .p{color:var(--brass);font-weight:700}
+
+  /* ============ 4. CRISP CLEANERS — utility / order-tracking app ============ */
+  .clean{background:#eef3f8;color:#1c2732;
+         --sans:"Segoe UI",system-ui,-apple-system,sans-serif;--blue:#2f6fb0;--ink:#16202b}
+  .clean .nav{position:absolute;top:0;left:0;right:0;z-index:4;display:flex;align-items:center;gap:16px;padding:22px 46px}
+  .clean .nav .lg{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+  .clean .nav .lg .mk{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#4d90d0,#2f6fb0)}
+  .clean .nav .sp{flex:1}.clean .nav a{color:#5b6b7a;font-weight:600;font-size:14px}
+  .clean .nav .cta{background:var(--blue);color:#fff;padding:10px 18px;border-radius:10px;font-weight:700;font-size:14px}
+  .clean .wrap{position:absolute;left:46px;right:46px;top:82px;bottom:74px;display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center}
+  .clean .trust{position:absolute;left:46px;right:46px;bottom:26px;display:flex;gap:26px;justify-content:center;align-items:center;
+                color:#5b6b7a;font-size:13.5px;border-top:1px solid #dbe5ef;padding-top:18px}
+  .clean .trust b{color:var(--ink)} .clean .trust .star{color:#f0a83c;letter-spacing:2px}
+  .clean .lead h1{font-size:44px;line-height:1.05;letter-spacing:-.5px;margin-bottom:14px}
+  .clean .lead h1 span{color:var(--blue)}
+  .clean .lead p{color:#5b6b7a;font-size:17px;line-height:1.5;max-width:38ch;margin-bottom:20px}
+  .clean .lead .cta{background:var(--blue);color:#fff;padding:14px 26px;border-radius:12px;font-size:15px;box-shadow:0 14px 30px rgba(47,111,176,.3)}
+  .clean .lead .chips{display:flex;gap:10px;margin-top:20px}
+  .clean .lead .chip{background:#fff;border:1px solid #dce6ef;border-radius:12px;padding:10px 14px;font-size:13px}
+  .clean .lead .chip b{display:block;color:var(--ink);font-size:15px} .clean .lead .chip span{color:#7a8896}
+  /* the app tracker card */
+  .clean .app{background:#fff;border-radius:22px;box-shadow:0 30px 70px rgba(30,50,80,.16);overflow:hidden;justify-self:center;
+              width:min(100%,380px);border:1px solid #e3ebf3}
+  .clean .app .ah{background:var(--ink);color:#fff;padding:18px 20px}
+  .clean .app .ah .t{font-size:13px;color:#9db3c7} .clean .app .ah .o{font-size:20px;font-weight:800;margin-top:2px}
+  .clean .app .ah .eta{float:right;background:#1c9d5c;color:#fff;font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;margin-top:2px}
+  .clean .app .steps{padding:22px 20px 6px}
+  .clean .app .stp{display:flex;align-items:center;gap:13px;position:relative;padding-bottom:20px}
+  .clean .app .stp:not(:last-child)::before{content:"";position:absolute;left:12px;top:26px;bottom:0;width:2px;background:#e0e8f0}
+  .clean .app .stp.done:not(:last-child)::before{background:var(--blue)}
+  .clean .app .stp .cir{width:26px;height:26px;border-radius:50%;background:#e0e8f0;flex:0 0 26px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
+  .clean .app .stp.done .cir{background:var(--blue)} .clean .app .stp.now .cir{background:#f0a83c}
+  .clean .app .stp .tx b{font-size:15px} .clean .app .stp .tx span{display:block;color:#8a98a6;font-size:12.5px}
+  .clean .app .foot{background:#f5f8fc;border-top:1px solid #e6eef6;padding:14px 20px;display:flex;align-items:center;gap:10px;font-size:13px;color:#5b6b7a}
+  .clean .app .foot .mp{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#cfe0f0,#a9c8e6);flex:0 0 34px;position:relative}
+  .clean .app .foot .mp::after{content:"";position:absolute;left:50%;top:46%;width:8px;height:8px;border-radius:50% 50% 50% 0;background:var(--blue);transform:translate(-50%,-50%) rotate(-45deg)}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var BUS = [
+  { id:"bakery", tier:"launch", name:"Sunrise Bakery & Café", store:"bakery_store.png", heroImg:"bakery_interior.png",
+    accent:"#c15a3c",
+    board:[["Morning Buns","$3.50"],["Sourdough Loaf","$6.00"],["Almond Croissant","$4.25"],
+           ["Cold Brew","$4.25"],["Cinnamon Knot","$3.75"],["Drip Coffee","$2.75"]] },
+
+  { id:"foodtruck", tier:"launch", name:"Rolling Fresh", store:"foodtruck_new.png",
+    truck:"foodtruck_new.png",
+    menu:[["Al Pastor Tacos","$11","Pineapple, wood fire"],["Baja Bowl","$13","Rice, slaw, crema"],
+          ["Agua Fresca","$4","Hibiscus or lime"],["Elote","$5","Cotija, chili, lime"]] },
+
+  { id:"barber", tier:"grow", name:"Sharp & Co. Barbers", store:"barber_store.png", heroImg:"barber_interior.png",
+    slots:[["Today 4:30",1],["5:15",0],["6:00",0],["Fri 10:00",0]],
+    rates:[["Signature Cut","$32"],["Hot-Towel Shave","$28"],["Beard Trim","$18"]] },
+
+  { id:"drycleaner", tier:"grow", name:"Crisp Cleaners", store:"cleaner_store.png", heroImg:"cleaner_interior.png",
+    steps:[["Picked up","done"],["Cleaning","done"],["Pressing","now"],["Ready for drop-off","todo"]] },
+
+  { id:"restaurant", tier:"signature", name:"Osteria Nonna", store:"store_restaurant_signed.png", heroImg:"osteria_interior.png",
+    menu:[["Tagliatelle Ragù","$22"],["Cacio e Pepe","$19"],["Nonna’s Chianti","$11"],["Tiramisù","$9"]] }
+];
+
+var params=new URLSearchParams(location.search);
+var bi=Math.max(0,Math.min(BUS.length-1,parseInt(params.get('biz'),10)||0));
+var b=BUS[bi];
+
+function bakery(){
+  var items=b.board.map(function(x){return '<div class="it"><span class="n">'+x[0]+'</span><span class="d"></span><span class="p">'+x[1]+'</span></div>';}).join('');
+  return '<div class="site bake">'+
+    '<div class="band"><img src="'+b.heroImg+'"><div class="tint"></div></div>'+
+    '<div class="sun"></div>'+
+    '<div class="brand"><div class="s">Sunrise</div><div class="t">Bakery &amp; Café</div></div>'+
+    '<div class="pitch"><h1>Fresh from the corner oven, every morning.</h1>'+
+      '<div class="cta"><button class="btn">Order ahead</button><button class="btn g">See the menu</button></div></div>'+
+    '<div class="board"><div class="bh">This morning’s board</div>'+
+      '<div class="items">'+items+'</div>'+
+      '<div class="foot"><b>Open</b> Mon–Sat 6a–2p &nbsp;·&nbsp; <b>Pickup</b> order ahead, skip the line &nbsp;·&nbsp; <b>Find us</b> 3rd &amp; Main</div>'+
+    '</div></div>';
+}
+
+function foodtruck(){
+  var rows=b.menu.map(function(m){return '<div class="r"><span>'+m[0]+'<small>'+m[2]+'</small></span><span class="p">'+m[1]+'</span></div>';}).join('');
+  var streets='<svg viewBox="0 0 100 100" preserveAspectRatio="none">'+
+    '<rect width="100" height="100" fill="#e8ece6"/>'+
+    '<g stroke="#d3d8ce" stroke-width="6"><path d="M-5 30 H105"/><path d="M-5 68 H105"/><path d="M25 -5 V105"/><path d="M72 -5 V105"/></g>'+
+    '<g stroke="#ffffff" stroke-width="1.4" stroke-dasharray="3 3"><path d="M-5 30 H105"/><path d="M-5 68 H105"/><path d="M25 -5 V105"/><path d="M72 -5 V105"/></g>'+
+    '<path d="M25 68 L25 44 L52 44" fill="none" stroke="#e04b3a" stroke-width="2.4" stroke-dasharray="4 3"/>'+
+    '<rect x="6" y="74" width="14" height="10" rx="1.5" fill="#cfe0cf"/><rect x="80" y="10" width="14" height="12" rx="1.5" fill="#cfe0cf"/>'+
+    '</svg>';
+  return '<div class="site truck">'+
+    '<div class="hdr"><div class="lg">🌮 Rolling Fresh</div><div class="sp"></div>'+
+      '<span class="open"><span class="d"></span>OPEN NOW · Dupont Circle</span>'+
+      '<span class="ord">Order ahead</span></div>'+
+    '<div class="map">'+streets+
+      '<div class="pin"><div class="dot"></div><div class="lb">📍 We’re here today · 11–3</div></div>'+
+      '<div class="card"><img src="'+b.truck+'"><div class="tx"><b>Find the truck. Skip the wait.</b><p>Wood-fired tacos & cold aguas frescas, parked somewhere delicious every day.</p></div></div>'+
+    '</div>'+
+    '<div class="receipt"><h3>TODAY’S MENU</h3><div class="sb">· fresh off the flat-top ·</div>'+
+      rows+
+      '<div class="tot"><span>Tap to order</span><span>→</span></div>'+
+    '</div>'+
+    '<div class="week"><h4>This week’s stops</h4>'+
+      '<div class="d"><span>Tue · Navy Yard</span><b>11–3</b></div>'+
+      '<div class="d"><span>Wed · Reston Town Ctr</span><b>11–3</b></div>'+
+      '<div class="d"><span>Thu · Union Market</span><b>5–9</b></div>'+
+      '<div class="d"><span>Sat · Eastern Market</span><b>10–4</b></div>'+
+    '</div></div>';
+}
+
+function barber(){
+  var slots=b.slots.map(function(s){return '<span class="sl'+(s[1]?' on':'')+'">'+s[0]+'</span>';}).join('');
+  var rates=b.rates.map(function(r){return '<div class="r"><span class="n">'+r[0]+'</span><span class="p">'+r[1]+'</span></div>';}).join('');
+  return '<div class="site barb">'+
+    '<div class="pole"></div>'+
+    '<div class="photo"><img src="'+b.heroImg+'"><div class="fade"></div></div>'+
+    '<div class="nav"><div class="lg">Sharp <b>&amp;</b> Co.</div><div class="sp"></div><a>Cuts</a><a>Barbers</a><a>Hours</a></div>'+
+    '<div class="hero"><div class="kick">Classic cuts · corner shop · est. 1994</div>'+
+      '<h1>Look<br><em>sharp.</em></h1>'+
+      '<p>Straight-razor fades and hot-towel shaves from barbers who remember your name.</p></div>'+
+    '<div class="book"><div class="bt">Book a chair <span>● 3 chairs open now</span></div>'+
+      '<div class="slots">'+slots+'</div>'+
+      '<div class="who">Next available with <b>Marcus</b> — today at 4:30pm</div></div>'+
+    '<div class="rates">'+rates+'</div>'+
+    '</div>';
+}
+
+function cleaner(){
+  var stepIcons={done:'✓',now:'●',todo:''};
+  var steps=b.steps.map(function(s){return '<div class="stp '+s[1]+'"><span class="cir">'+stepIcons[s[1]]+'</span><div class="tx"><b>'+s[0]+'</b><span>'+
+     (s[1]==='done'?'Complete':(s[1]==='now'?'In progress now':'Estimated Thu 5:00pm'))+'</span></div></div>';}).join('');
+  return '<div class="site clean">'+
+    '<div class="nav"><div class="lg"><span class="mk"></span>Crisp Cleaners</div><div class="sp"></div>'+
+      '<a>Services</a><a>Pricing</a><a>Track order</a><span class="cta">Schedule pickup</span></div>'+
+    '<div class="wrap"><div class="lead">'+
+      '<h1>Schedule a pickup.<br><span>Track every order.</span></h1>'+
+      '<p>Dry cleaning and tailoring with free doorstep pickup — and your phone always knows exactly where your order is.</p>'+
+      '<button class="btn cta">Schedule a pickup →</button>'+
+      '<div class="chips"><div class="chip"><b>Free</b><span>doorstep pickup</span></div>'+
+        '<div class="chip"><b>24 hr</b><span>standard turnaround</span></div>'+
+        '<div class="chip"><b>Live</b><span>order tracking</span></div></div>'+
+    '</div>'+
+    '<div class="app"><div class="ah"><span class="eta">Ready Thu 5p</span><div class="t">Order #4821</div><div class="o">2 shirts · 1 suit</div></div>'+
+      '<div class="steps">'+steps+'</div>'+
+      '<div class="foot"><span class="mp"></span>Out for doorstep drop-off · tracked to your door</div>'+
+    '</div></div>'+
+    '<div class="trust"><span><span class="star">★★★★★</span> <b>4.9</b> · 2,400+ orders this month</span><span>·</span><span><b>Free pickup</b> across the DMV</span><span>·</span><span><b>Same-day</b> before noon</span></div>'+
+    '</div>';
+}
+
+function signature(){
+  return '<div class="sig">'+
+    '<div class="stage" style="background-image:url(\''+(b.heroImg||b.store)+'\')"></div>'+
+    '<div class="grad"></div><div class="grain"></div>'+
+    '<div class="mast">'+
+      '<div class="mnav"><div class="grp"><a>Carta</a><a>La Storia</a></div>'+
+        '<div class="grp"><a>Visita</a><a>Prenota</a></div></div>'+
+      '<div class="wordmark" style="margin-top:14px">Osteria Nonna</div>'+
+      '<div class="rule"><span>Cucina Romana</span></div>'+
+    '</div>'+
+    '<div class="seal"><div class="n">N</div><div class="y">Est. 1994</div></div>'+
+    '<div class="hero">'+
+      '<div class="kick">Handmade · Family table</div>'+
+      '<h1>Sunday dinner,<br><em>every</em> night<br>of the week.</h1>'+
+      '<p class="lead">Slow-cooked ragù and hand-rolled pasta, in a room that feels like Sunday at Nonna’s.</p>'+
+    '</div>'+
+    '<div class="book">'+
+      '<div class="fld"><div class="l">Date</div><div class="v">Fri, Jul 24</div></div>'+
+      '<div class="fld"><div class="l">Guests</div><div class="v">2</div></div>'+
+      '<div class="fld"><div class="l">Time</div><div class="v">7:00 pm</div></div>'+
+      '<div class="go">Reserve a table</div>'+
+    '</div>'+
+    '<div class="carta"><div class="cl">La Carta</div>'+
+      b.menu.map(function(m){return '<div class="item"><span class="nm">'+m[0]+'</span><span class="dot"></span><span class="pr">'+m[1]+'</span></div>';}).join('')+
+    '</div>'+
+    '</div>';
+}
+
+try{
+  var R={bakery:bakery,foodtruck:foodtruck,barber:barber,drycleaner:cleaner,restaurant:signature};
+  document.getElementById('root').innerHTML=(R[b.id]||bakery)();
+}catch(e){ document.title='ERR: '+e.message; document.getElementById('root').innerHTML='<pre style="padding:20px;font:14px monospace">'+e.stack+'</pre>'; }
+</script>
+<style>
+  /* ============ 5. OSTERIA NONNA — cinematic fine-dining (approved) ============ */
+  .sig{position:absolute;inset:0;background:#0c0908;color:#f4ece0;overflow:hidden;
+       --serif:"Bodoni MT","Didot",Didot,"Times New Roman",serif;
+       --body:"Palatino Linotype","Book Antiqua",Palatino,Georgia,serif}
+  .sig .stage{position:absolute;inset:0;background-size:cover;background-position:center 52%;transform:scale(1.03)}
+  .sig .grain{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
+              background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:3px 3px}
+  .sig .grad{position:absolute;inset:0;z-index:1;background:
+      radial-gradient(130% 100% at 50% 40%,rgba(8,6,5,0) 34%,rgba(8,6,5,.72) 100%),
+      linear-gradient(180deg,rgba(8,6,5,.72) 0%,rgba(8,6,5,0) 26%,rgba(8,6,5,0) 55%,rgba(8,6,5,.9) 100%)}
+  .sig .mast{position:absolute;top:0;left:0;right:0;z-index:4;padding:30px 56px 0;text-align:center}
+  .sig .mnav{display:flex;align-items:center;justify-content:space-between;font-family:var(--body)}
+  .sig .mnav a{color:rgba(244,236,224,.72);font-size:12px;letter-spacing:3px;text-transform:uppercase}
+  .sig .mnav .grp{display:flex;gap:26px}
+  .sig .wordmark{font-family:var(--serif);font-size:34px;letter-spacing:10px;font-weight:400;color:#f7efe2;text-transform:uppercase;line-height:1}
+  .sig .rule{display:flex;align-items:center;justify-content:center;gap:14px;margin:12px auto 0;max-width:340px;color:var(--gold)}
+  .sig .rule::before,.sig .rule::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,rgba(217,164,65,.7),transparent)}
+  .sig .rule span{font-family:var(--body);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(217,164,65,.9)}
+  .sig .hero{position:absolute;left:56px;bottom:150px;z-index:4;max-width:60%}
+  .sig .hero .kick{font-family:var(--body);color:#d9a441;letter-spacing:4px;text-transform:uppercase;font-size:13px;margin-bottom:16px}
+  .sig .hero h1{font-family:var(--serif);font-weight:400;font-size:74px;line-height:.96;letter-spacing:-.5px;text-shadow:0 4px 40px rgba(0,0,0,.6)}
+  .sig .hero h1 em{font-style:italic;color:#d9a441}
+  .sig .hero .lead{font-family:var(--body);font-size:18px;line-height:1.5;color:rgba(244,236,224,.9);max-width:38ch;margin-top:18px;font-style:italic}
+  .sig .book{position:absolute;left:56px;bottom:52px;z-index:5;display:flex;align-items:stretch;
+             background:rgba(18,13,11,.62);backdrop-filter:blur(10px);border:1px solid rgba(217,164,65,.45);border-radius:3px;overflow:hidden}
+  .sig .book .fld{padding:13px 22px;border-right:1px solid rgba(217,164,65,.22);font-family:var(--body)}
+  .sig .book .fld .l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(217,164,65,.85);margin-bottom:3px}
+  .sig .book .fld .v{font-size:15px;color:#f4ece0}
+  .sig .book .go{padding:0 30px;display:flex;align-items:center;background:#d9a441;color:#20130a;font-family:var(--body);font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase}
+  .sig .carta{position:absolute;right:56px;bottom:52px;z-index:4;width:320px}
+  .sig .carta .cl{font-family:var(--serif);font-style:italic;color:#d9a441;font-size:22px;margin-bottom:14px;text-align:right}
+  .sig .carta .item{display:flex;align-items:baseline;font-family:var(--body);gap:8px;margin-bottom:11px}
+  .sig .carta .item .nm{color:#f4ece0;font-size:15px;white-space:nowrap}
+  .sig .carta .item .dot{flex:1;border-bottom:1px dotted rgba(244,236,224,.35);transform:translateY(-4px)}
+  .sig .carta .item .pr{color:#d9a441;font-size:15px}
+  .sig .seal{position:absolute;top:150px;right:64px;z-index:4;width:96px;height:96px;border-radius:50%;
+             border:1px solid rgba(217,164,65,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;
+             font-family:var(--serif);color:#d9a441;text-align:center;background:rgba(12,9,8,.35)}
+  .sig .seal .n{font-size:38px;line-height:1}
+  .sig .seal .y{font-family:var(--body);font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+</style>
+</body>
+</html>
