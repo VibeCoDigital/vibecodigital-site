@@ -16,7 +16,8 @@
 
   .scene{position:relative;height:1000vh}
   .stage{position:sticky;top:0;height:100vh;overflow:hidden;background:linear-gradient(#0b1418,#0d0b0a);
-         perspective:1150px;perspective-origin:50% 45%}
+         perspective:1150px;perspective-origin:50% 45%;
+         -webkit-perspective:1150px;-webkit-perspective-origin:50% 45%}
 
   /* ---- fixed sky backdrop (behind the 3D world) ---- */
   .sky{position:absolute;inset:0;z-index:0;
@@ -32,7 +33,7 @@
         background:linear-gradient(180deg,rgba(240,220,190,0),rgba(240,220,190,.5));filter:blur(2px)}
 
   /* ---- the 3D world you walk through ---- */
-  .world{position:absolute;inset:0;z-index:2;transform-style:preserve-3d;will-change:transform}
+  .world{position:absolute;inset:0;z-index:2;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;will-change:transform}
   /* the street floor — a long plane laid flat, rushing toward you */
   .ground{position:absolute;left:50%;top:50%;width:3200px;height:18000px;margin-left:-1600px;margin-top:-9000px;
           transform-origin:50% 50%;transform:translateY(260px) rotateX(90deg);
@@ -45,7 +46,7 @@
   .ground .curbL{left:1040px} .ground .curbR{right:1040px}
 
   .lot{position:absolute;left:50%;top:50%;width:920px;height:700px;margin-left:-460px;margin-top:-350px;
-       transform-style:preserve-3d;will-change:transform,opacity}
+       transform-style:preserve-3d;-webkit-transform-style:preserve-3d;will-change:transform,opacity}
   .lot .facade{position:absolute;inset:0;border-radius:4px;overflow:hidden;
                box-shadow:0 40px 80px rgba(0,0,0,.4);background:#222}
   .lot .facade img{width:100%;height:100%;object-fit:cover;object-position:center 44%;display:block}
@@ -56,13 +57,13 @@
 
   /* street lamps that rush past = motion cue */
   .lamp{position:absolute;left:50%;top:50%;width:10px;height:340px;margin-left:-5px;margin-top:-40px;
-        background:linear-gradient(#4a4034,#2c261e);border-radius:4px;transform-style:preserve-3d}
+        background:linear-gradient(#4a4034,#2c261e);border-radius:4px;transform-style:preserve-3d;-webkit-transform-style:preserve-3d}
   .lamp::after{content:"";position:absolute;top:-16px;left:-14px;width:38px;height:26px;border-radius:50%;
                background:radial-gradient(circle,#ffe9b0,#e8a54b);box-shadow:0 0 40px 14px rgba(232,165,75,.6)}
 
   /* clean UI nameplate */
   .nameplate{display:inline-flex;align-items:center;gap:.55em;margin-bottom:.9em;padding:.5em .95em;
-             border-radius:10px;background:rgba(20,16,12,.72);backdrop-filter:blur(8px);
+             border-radius:10px;background:rgba(20,16,12,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
              border:1px solid rgba(255,255,255,.14);font-weight:800;font-size:clamp(13px,1.9vh,18px);
              letter-spacing:.2px;box-shadow:0 10px 26px rgba(0,0,0,.35)}
   .nameplate .pin{width:9px;height:9px;border-radius:50%;background:var(--accent2);box-shadow:0 0 10px var(--accent2)}
@@ -109,7 +110,7 @@
   .waypoint .wq{font-size:clamp(11px,1.5vh,13px);font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffd9b0;margin-bottom:.6em}
   .waypoint a{pointer-events:auto;display:inline-flex;align-items:center;gap:.6em;padding:.85em 1.4em;border-radius:999px;
               background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.35);color:#fff;text-decoration:none;
-              font-weight:800;font-size:clamp(13px,1.9vh,17px);backdrop-filter:blur(8px)}
+              font-weight:800;font-size:clamp(13px,1.9vh,17px);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
   .waypoint a .ar{color:var(--accent2)}
 
   /* ---- full-stage panels ---- */
@@ -136,6 +137,25 @@
   #hint .ch{display:block;font-size:20px;margin-top:2px;animation:bob 1.6s ease-in-out infinite}
   @keyframes bob{50%{transform:translateY(6px)}}
   .rmnote{display:none;position:fixed;left:0;right:0;bottom:18px;text-align:center;z-index:110;color:#ffd9b0;font-weight:700}
+
+  /* ============================================================
+     MOBILE 3D-LITE (html.m) — keeps the walk, but within the
+     limits of phone GPUs. The desktop path above is untouched.
+     - ground: capped to a texture-safe size (was 3200x18000px,
+       which overflows mobile GPU texture limits and paints
+       garbage). It's now locked to the camera in JS and its
+       brick scrolls to fake forward motion.
+     - blur filters / backdrop-filter dropped (costly + glitchy).
+     - shorter scroll track so it moves faster.
+     ============================================================ */
+  html.m .scene{height:760vh}
+  html.m .ground{width:2200px;height:3600px;margin-left:-1100px;margin-top:-1800px}
+  html.m .ground .curbL,html.m .ground .curbR{display:none}
+  html.m .backdrop{filter:saturate(1.05)}
+  html.m .haze{filter:none}
+  html.m .lot .base{filter:none}
+  html.m .nameplate{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(20,16,12,.92)}
+  html.m .waypoint a{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(28,22,16,.82)}
 </style>
 </head>
 <body>
@@ -215,6 +235,10 @@ const SHOPS = [
 ];
 const N = SHOPS.length;
 
+/* phones / touch devices get the 3D-lite path (see html.m CSS + ground handling below) */
+const MOBILE = !!(window.matchMedia && window.matchMedia('(max-width:820px),(pointer:coarse)').matches);
+if(MOBILE) document.documentElement.classList.add('m');
+
 const T_INTRO_END = 0.055, T_STREET_END = 0.80, T_TT_START = 0.815, T_TT_END = 0.905, T_CONTACT_START = 0.925;
 const SEG = (T_STREET_END - T_INTRO_END) / N;
 
@@ -243,6 +267,7 @@ SHOPS.forEach((s,i)=>{
 const lots = [...document.querySelectorAll('.lot')];
 const lamps = [...document.querySelectorAll('.lamp')];
 const veils = [...document.querySelectorAll('.veil')];
+const groundEl = document.querySelector('.ground');
 
 /* ---- refs ---- */
 const stage=document.getElementById('stage'), scene=document.getElementById('scene');
@@ -299,6 +324,13 @@ function render(t){
   /* ---------- WALK: dolly the camera forward down the street ---------- */
   const camZ = f*GAP;                       // world moves toward camera as we advance
   world.style.transform = 'translateZ('+camZ.toFixed(1)+'px)';
+  /* MOBILE: the ground is a small, texture-safe plane locked to the camera
+     (counter the world's +camZ) with its brick scrolled to fake the rush forward.
+     A full-length 3D floor plane would blow past the phone's GPU texture cap. */
+  if(MOBILE){
+    groundEl.style.transform='translateZ('+(-camZ).toFixed(1)+'px) translateY(260px) rotateX(90deg)';
+    groundEl.style.backgroundPosition='center '+(camZ*0.55).toFixed(1)+'px';
+  }
 
   /* ---------- per-lot base transform + depth-based light ---------- */
   for(let i=0;i<N;i++){
@@ -355,7 +387,8 @@ const params=new URLSearchParams(location.search);
 const forceT=params.get('t');
 const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const STATIC=params.get('static')==='1';
-const FOLLOW=reduce?0.14:0.075;
+/* snappier scroll-follow = fewer coasting frames = less GPU churn; mobile settles fastest */
+const FOLLOW=reduce?0.16:(MOBILE?0.14:0.09);
 
 if(forceT!==null){
   const t=clamp(parseFloat(forceT),0,1);
