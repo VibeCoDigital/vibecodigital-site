@@ -1,0 +1,68 @@
+{
+  "vibecoManifest": 1,
+  "generatedFrom": "prospect-intel: https://www.exoticnativeanimals.org/ + manual reviews",
+  "demoUrl": "https://vibecodigital.com/demo/exotic-and-native-animals/",
+  "businessName": "Exotic and Native Animals, Inc.",
+  "businessType": "animal sanctuary",
+  "city": "",
+  "yearsInBusiness": "",
+  "existingSiteUrl": "https://www.exoticnativeanimals.org/",
+  "features": [
+    "Contact form or inquiry page",
+    "Google Maps embed + directions",
+    "Social media links"
+  ],
+  "customFeatures": [],
+  "hasLogo": "",
+  "brandColors": "",
+  "stylePreference": "",
+  "socialFacebook": "",
+  "socialInstagram": "",
+  "socialOther": "YouTube: https://www.youtube.com/embed/0nZgzyREXqQ",
+  "contactPhone": "+17033386058",
+  "contactEmail": "",
+  "_draft": {
+    "generatedBy": "prospect-intel",
+    "slug": "exotic-and-native-animals",
+    "provenance": {
+      "businessType": {
+        "value": "animal sanctuary",
+        "from": "you provided"
+      },
+      "existingSiteUrl": {
+        "value": "https://www.exoticnativeanimals.org/",
+        "from": "audited live"
+      },
+      "contactPhone": {
+        "value": "+17033386058",
+        "from": "their own website — confirm it is the number they want customers using",
+        "needsConfirmation": true
+      },
+      "socialOther": {
+        "value": "YouTube: https://www.youtube.com/embed/0nZgzyREXqQ",
+        "from": "linked on their website / Yelp listing"
+      },
+      "features": {
+        "value": [
+          "Contact form or inquiry page",
+          "Google Maps embed + directions",
+          "Social media links"
+        ],
+        "from": "inferred from review pain points + defaults",
+        "needsConfirmation": true
+      },
+      "tagline": {
+        "value": "Exotic and Native Animals, Inc.",
+        "from": "their website meta description (owner-authored)",
+        "needsConfirmation": true
+      }
+    },
+    "needsConfirmation": [
+      "businessType / features / brandColors are inferred — confirm at the pitch.",
+      "yearsInBusiness, hasLogo, stylePreference, contactEmail are unknowable from public data — owner questions (left blank).",
+      "contactPhone is the PUBLIC listing number — swap for the owner's direct line at onboarding.",
+      "Demo images must be REAL owner-supplied photos — no stock, no fabricated imagery."
+    ],
+    "note": "DRAFT manifest (onboarding-form contract). Confirm flagged items at the pitch; the demo generator publishes this beside the demo index.html. Strip _draft before publishing if desired — the form ignores unknown keys either way."
+  }
+}

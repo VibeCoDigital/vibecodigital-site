@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Exotic and Native Animals, Inc.</title>
+<meta name="description" content="Exotic and Native Animals">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2212%22%20fill%3D%22%231f4d3e%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-size%3D%2238%22%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3EE%3C%2Ftext%3E%3C%2Fsvg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Exotic and Native Animals, Inc.">
+<meta property="og:description" content="Exotic and Native Animals">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@600;800&amp;family=Inter:wght@400;600;700&amp;display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--accent:#1f4d3e;--accent2:#b5651d;--ink:#141d15;--muted:#5c6a5c;--bg:#f2f5ef;--card:#fffdf9;--border:#e7dcc8;--band:#e2e8dc}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+h1,h2,h3,.nav-name{font-family:'Spectral',Georgia,'Times New Roman',serif}
+a{color:var(--accent)}
+.container{max-width:960px;margin:0 auto;padding:0 22px}
+.preview-bar{background:#141d15;color:#EFEAE4;text-align:center;font-size:.8rem;font-weight:600;padding:8px 16px}
+nav{position:sticky;top:0;background:rgba(255,253,249,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);z-index:10}
+.nav-inner{max-width:960px;margin:0 auto;padding:0 22px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.nav-name{font-weight:800;font-size:1.05rem;letter-spacing:-.3px;white-space:nowrap}
+.nav-logo{height:36px;width:auto;max-width:200px;object-fit:contain;display:block}
+.nav-links{display:flex;gap:16px;flex-wrap:wrap;font-size:.85rem;font-weight:700}
+.nav-links a{text-decoration:none;color:var(--muted)}
+.nav-links a:hover{color:var(--accent)}
+.hero{text-align:center;padding:64px 0 52px;}
+.hero .eyebrow{display:inline-block;background:#1f4d3e1c;color:var(--accent);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:18px}
+.hero h1{font-size:clamp(2.00rem,5.50vw,3.20rem);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:12px;}
+.hero p{color:var(--muted);font-size:1.02rem;max-width:540px;margin:0 auto 24px}
+/* Photo hero — full-bleed background image with a scrim so text stays legible. */
+.hero.hero-photo{position:relative;padding:clamp(72px,16vw,132px) 0;background-size:cover;background-position:center;color:#fff;overflow:hidden}
+.hero.hero-photo::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,18,12,.46),rgba(10,18,12,.78)),linear-gradient(180deg,transparent 45%,#1f4d3e2e);z-index:0}
+.hero.hero-photo .container{position:relative;z-index:1}
+.hero.hero-photo h1{text-shadow:0 2px 18px rgba(0,0,0,.45)}
+.hero.hero-photo p{color:rgba(255,255,255,.94);text-shadow:0 1px 10px rgba(0,0,0,.5)}
+.hero.hero-photo .eyebrow{background:rgba(255,255,255,.16);color:#fff;backdrop-filter:blur(4px)}
+.ph-badge{position:absolute;top:12px;right:12px;z-index:2;background:rgba(0,0,0,.55);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.03em;padding:5px 11px;border-radius:100px;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.25)}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:100px;border:none;font-size:.93rem;font-weight:700;cursor:pointer;text-decoration:none;transition:transform .15s;}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-outline{background:#fff;color:var(--ink);border:1.5px solid var(--border)}
+section{padding:44px 0}
+h2{font-size:clamp(1.55rem,2.9vw,2.05rem);font-weight:800;letter-spacing:-.3px;margin-bottom:22px;text-align:center;}
+h2::after{content:"◆";display:block;color:var(--accent2);font-size:.6rem;letter-spacing:.3em;margin-top:9px;opacity:.85}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px}
+.card-icon{font-size:1.5rem;margin-bottom:8px}
+.card h3{font-size:1rem;margin-bottom:5px;}
+.card p{color:var(--muted);font-size:.88rem}
+.hl-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:18px 10px;max-width:1000px;margin:0 auto}
+.hl-item{flex:1 1 150px;max-width:186px;text-align:center;padding:4px 6px}
+.hl-icon{font-size:1.7rem;margin-bottom:7px;line-height:1}
+.hl-t{font-weight:800;font-size:.95rem;margin-bottom:3px}
+.hl-d{color:var(--muted);font-size:.8rem;line-height:1.45}
+#why{padding-top:34px;padding-bottom:34px}
+/* Opt-in photo backdrop (see cfg.sectionPhotoBg) — additive only, gated on
+   the .alt-photo class which nothing but that flag ever adds. */
+section.alt.alt-photo{background-image:linear-gradient(180deg,rgba(8,10,6,.62),rgba(8,10,6,.62)),var(--section-photo);background-size:cover;background-position:center;color:#fff}
+section.alt.alt-photo h2{color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+section.alt.alt-photo .hl-item{background:rgba(255,255,255,.12);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:16px;padding:14px 10px;border:1px solid rgba(255,255,255,.22)}
+section.alt.alt-photo .hl-t{color:#fff}
+section.alt.alt-photo .hl-d{color:rgba(255,255,255,.85)}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.shot{border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--card)}
+.shot img{width:100%;height:220px;object-fit:cover;display:block}
+.map-wrap{border-radius:16px;overflow:hidden;border:1px solid var(--border)}
+.map-wrap iframe{width:100%;height:340px;border:0;display:block}
+section.alt{background-color:var(--band);background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2760%27%20height%3D%2760%27%20viewBox%3D%270%200%2060%2060%27%20opacity%3D%270.5%27%3E%3Cpath%20d%3D%27M30%200L60%2030L30%2060L0%2030Z%27%20fill%3D%27none%27%20stroke%3D%27%23b5651d%27%20stroke-width%3D%271%27%2F%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%272.4%27%20fill%3D%27%23b5651d%27%2F%3E%3C%2Fsvg%3E");background-size:60px 60px}
+.hero:not(.hero-photo){background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2760%27%20height%3D%2760%27%20viewBox%3D%270%200%2060%2060%27%20opacity%3D%270.5%27%3E%3Cpath%20d%3D%27M30%200L60%2030L30%2060L0%2030Z%27%20fill%3D%27none%27%20stroke%3D%27%23b5651d%27%20stroke-width%3D%271%27%2F%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%272.4%27%20fill%3D%27%23b5651d%27%2F%3E%3C%2Fsvg%3E");background-size:60px 60px}
+.btn-light{background:#fff;color:var(--ink);border:1.5px solid var(--border)}
+.hero.hero-photo .btn-light{background:rgba(255,255,255,0.16);color:#fff;border-color:rgba(255,255,255,0.5);backdrop-filter:blur(4px)}
+.about{max-width:760px;text-align:center}
+.about p{color:var(--muted);font-size:1.06rem;line-height:1.75}
+/* Owner-authored write-ups (see cfg.sections) — their exact words, rendered as
+   readable body bands with a brand-accent rule so a rich, quirky site keeps its
+   character instead of collapsing to one mission sentence. */
+.story{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:30px}
+.story-item{border-left:3px solid #1f4d3e44;padding-left:22px}
+.story-h{font-size:1.22rem;font-weight:800;letter-spacing:-.2px;margin-bottom:10px;}
+.story-item p{color:var(--muted);font-size:1.02rem;line-height:1.75;margin-bottom:9px}
+.story-item p:last-child{margin-bottom:0}
+@media(max-width:640px){.story-item{padding-left:16px}}
+.section-note{text-align:center;color:var(--muted);font-size:.85rem;margin:-8px auto 22px;max-width:560px}
+.sample-tag{display:inline-block;vertical-align:middle;background:#1f4d3e1c;color:var(--accent);font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid #1f4d3e55}
+.menu-tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:26px}
+.menu-tab{font-family:inherit;font-size:.85rem;font-weight:700;padding:8px 15px;border-radius:100px;border:1.5px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.menu-tab:hover{border-color:var(--accent);color:var(--accent)}
+.menu-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.menu-tab-n{opacity:.6;font-size:.78em;margin-left:2px}
+.menu-tab.active .menu-tab-n{opacity:.8}
+.menu-panel{display:none}
+.menu-panel.active{display:block;animation:mfade .28s ease}
+@keyframes mfade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.menu-cat{font-size:1.15rem;font-weight:800;color:var(--accent);text-align:center;margin-bottom:16px}
+.menu-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px 34px;max-width:880px;margin:0 auto;text-align:left}
+.menu-item{margin-bottom:2px}
+.menu-item.has-thumb{display:flex;gap:13px;align-items:flex-start}
+.mi-thumb{width:74px;height:74px;object-fit:cover;border-radius:12px;flex:none;border:1px solid var(--border);background:var(--card);cursor:zoom-in;transition:transform .15s}
+.mi-thumb:hover{transform:scale(1.05)}
+.shot img{cursor:zoom-in}
+.lightbox{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;background:rgba(15,10,6,.86);backdrop-filter:blur(3px);padding:24px;cursor:zoom-out}
+.lightbox.open{display:flex;animation:mfade .2s ease}
+.lightbox img{max-width:min(92vw,720px);max-height:88vh;width:auto;height:auto;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lightbox .lb-x{position:absolute;top:18px;right:22px;color:#fff;font-size:2rem;font-weight:300;line-height:1;cursor:pointer;opacity:.85}
+.mi-body{flex:1;min-width:0}
+.mi-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.mi-name{font-weight:700;font-size:.98rem}
+.mi-price{font-weight:800;color:var(--accent);white-space:nowrap}
+.mi-desc{color:var(--muted);font-size:.85rem;margin-top:2px}
+.find-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:24px;align-items:start}
+.find-block{margin-bottom:20px}
+.find-label{font-weight:800;font-size:.9rem;margin-bottom:6px}
+.find-block p{color:var(--muted)}
+.find-link{display:inline-block;margin-top:6px;font-weight:700;font-size:.88rem;text-decoration:none}
+.hours{width:100%;border-collapse:collapse;font-size:.9rem}
+.hours td{padding:5px 0;color:var(--muted);border-bottom:1px solid var(--border)}
+.hours td:last-child{text-align:right;font-weight:600;color:var(--ink)}
+@media(max-width:720px){.find-grid{grid-template-columns:1fr}}
+.contact-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px;max-width:560px;margin:0 auto}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:.82rem;font-weight:700;margin-bottom:6px}
+.field input,.field textarea{width:100%;font-family:inherit;font-size:.95rem;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;background:var(--bg);color:var(--ink);outline:none}
+.field input:focus,.field textarea:focus{border-color:var(--accent)}
+.contact-links{text-align:center;margin-bottom:8px;font-weight:700;font-size:1.05rem}
+.contact-links a{text-decoration:none}
+.ask-for{text-align:center;color:var(--muted);font-size:.92rem;margin-bottom:18px}
+.ok-msg{display:none;text-align:center;padding:20px;color:#2FBF71;font-weight:700}
+footer{border-top:1px solid var(--border);padding:24px 22px;text-align:center;font-size:.8rem;color:var(--muted)}
+footer a{color:var(--accent);text-decoration:none;font-weight:700}
+.demo-disclaimer{max-width:640px;margin:14px auto 0;padding-top:12px;border-top:1px solid var(--border);font-size:.72rem;line-height:1.5;opacity:.85}
+.demo-form-note{max-width:560px;margin:0 auto 18px;padding:12px 16px;border:1px solid var(--border);border-radius:10px;background:rgba(230,51,42,.06);font-size:.82rem;line-height:1.5;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+<div class="preview-bar">🔧 Preview build — content is being finalized with the owner. Built by VibeCo Digital.</div>
+<nav><div class="nav-inner">
+  <img class="nav-logo" src="assets/logo.jpg" alt="Exotic and Native Animals, Inc.">
+  <div class="nav-links"><a href="#about">About</a><a href="#story">More</a><a href="#why">Why us</a><a href="#gallery">Photos</a><a href="#find">Find us</a><a href="#contact">Inquiry</a><a href="#reach">Contact</a></div>
+  <a class="btn btn-primary" style="padding:8px 16px;font-size:.85rem;" href="tel:17033386058">📞 Call</a>
+</div></nav>
+
+<header class="hero hero-photo" style="background-image:url('assets/hero.jpg')">
+  
+  <div class="container">
+  <span class="eyebrow">Rehabilitation &amp; Conservation</span>
+  <h1>Exotic and Native Animals, Inc.</h1>
+  <p>Exotic and Native Animals</p>
+  <div class="cta">
+    
+    
+    <a class="btn btn-primary" href="tel:17033386058">📞 +17033386058</a>
+    <a class="btn btn-light" href="#contact">Send an inquiry</a>
+  </div>
+  </div>
+</header>
+
+
+
+
+
+<section id="about"><div class="container about"><h2>About Exotic and Native Animals, Inc.</h2><p>Exotic and Native Animals, Inc. (ENA) is committed to its mission: rehabilitation and releasing to the wild injured, ill, or orphaned native WV birds and animals, and conserving and restoring natural ecosystems for the benefit of humanity and the Earth&#39;s biological diversity.</p></div></section>
+
+<section id="story"><div class="container"><div class="story"><article class="story-item"><h3 class="story-h">What We Do</h3><p>ENA advances its mission through demonstrations of exotic animals to adults and K-12 students, researching optimal conditions for wild birds breeding, reproducing and releasing native quails and pheasants into nature.</p></article><article class="story-item"><h3 class="story-h">Our team</h3><p>We are wildlife enthusiasts, living far away from big cities, in the mountains of West Virginia. We own 22 acres of land here and already have several breeds of exotic and native animals and birds.</p><p>Our closest neighbors have hundreds, even thousands, acres of land, which are mostly wooded mountains with scattered hay fields. This creates ideal conditions for wildlife restoration.</p></article><article class="story-item"><h3 class="story-h">Work with Children</h3><p>In addition to accepting visitors at the farm, we sometimes make trips to local schools.</p><p>This way we can show our animals and birds to large number of kids at once.</p><p>So, recently we visited West Virginia Schools for the Deaf and the Blind and Romney Elementary School.</p><p>Below are some pictures from these visits and visits to our farm.</p><p>At Romney Elementary School we even brought a small incubator with fertilized chicken and duck eggs. Children were able to watch all process from incubating to hatching and to feeding newborn chicks.</p></article><article class="story-item"><h3 class="story-h">OUR PROJECTS</h3><p>Building a new storage room to keep feed for birds and animals.</p><p>Covering the pond area with netting to protect wild ducks from hawks and owls</p><p>Макing a canopy for Peacocks, to shield them from snow during winter</p><p>Pigs enjoy corn husks. We are also always looking for help with feed for our wild birds, animals and guardian dogs.</p></article></div></div></section>
+
+<section id="why" class="alt alt-photo" style="--section-photo:url('assets/site-photo-2.png')"><div class="container"><h2>Why Exotic and Native Animals, Inc.</h2><div class="hl-strip"><div class="hl-item"><div class="hl-icon">🎗️</div><div class="hl-t">Registered nonprofit</div><div class="hl-d">A 501(c)(3) organization — donations are tax-deductible.</div></div><div class="hl-item"><div class="hl-icon">📚</div><div class="hl-t">Educational programs</div><div class="hl-d">Hands-on demonstrations and programs for schools and the community.</div></div><div class="hl-item"><div class="hl-icon">⭐</div><div class="hl-t">Trusted locally</div><div class="hl-d">A local business your neighbors rely on.</div></div><div class="hl-item"><div class="hl-icon">🤝</div><div class="hl-t">Personal service</div><div class="hl-d">Straightforward, friendly, one-on-one service.</div></div></div></div></section>
+
+
+
+
+
+<section id="gallery"><div class="container"><h2>Photos</h2><div class="shots"><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-1.png" alt="Exotic and Native Animals, Inc. — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-2.png" alt="Exotic and Native Animals, Inc. — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-3.png" alt="Exotic and Native Animals, Inc. — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-4.png" alt="Exotic and Native Animals, Inc. — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-5.png" alt="Exotic and Native Animals, Inc. — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-6.jpg" alt="Exotic and Native Animals, Inc. — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-7.png" alt="Exotic and Native Animals, Inc. — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-8.jpg" alt="Exotic and Native Animals, Inc. — real photo"></figure></div></div></section>
+
+<section id="find" class="alt"><div class="container"><h2>Find us</h2><div class="find-grid"><div class="find-info"><div class="find-block"><div class="find-label">📍 Address</div><p>1251 Mud Run Rd., Purgitsville WV 26852-9713</p><a class="find-link" target="_blank" rel="noopener" href="https://maps.google.com/maps?q=1251%20Mud%20Run%20Rd.%2C%20Purgitsville%20WV%2026852-9713">Get directions →</a></div><div class="find-block"><div class="find-label">🕒 Hours</div><table class="hours"><tr><td>Mon – Sat</td><td>By appointment</td></tr><tr><td>Sunday</td><td>Closed</td></tr></table></div><div class="find-block"><div class="find-label">📞 Phone</div><p><a href="tel:17033386058">+17033386058</a></p></div></div><div class="map-wrap"><iframe title="Map" loading="lazy" src="https://maps.google.com/maps?q=1251%20Mud%20Run%20Rd.%2C%20Purgitsville%20WV%2026852-9713&z=15&output=embed"></iframe></div></div></div></section>
+
+
+<section id="contact"><div class="container">
+  <h2>Get in touch</h2>
+  <p class="demo-form-note">This is a preview site. This form is <strong>not monitored by Exotic and Native Animals, Inc.</strong> — messages go to VibeCo Digital for demonstration only. To reach the business, please use its official contact details.</p>
+  <div class="contact-box">
+    <form id="inquiryForm">
+      <div class="field"><label for="iName">Your name</label><input id="iName" type="text"></div>
+      <div class="field"><label for="iContact">Phone or email</label><input id="iContact" type="text" required></div>
+      <div class="field"><label for="iMsg">How can we help?</label><textarea id="iMsg" rows="4" required></textarea></div>
+      <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;">Send message</button>
+    </form>
+    <div class="ok-msg" id="okMsg">✓ Message sent — we'll get back to you soon!</div>
+  </div>
+</div></section>
+
+<section id="reach"><div class="container" style="text-align:center;">
+  <h2>Contact</h2>
+  <p class="contact-links">
+    <a href="tel:17033386058">+17033386058</a>
+    
+    
+  </p>
+  
+  <div class="cta"></div>
+</div></section>
+
+<footer>
+  <p>© <span id="yr"></span> Exotic and Native Animals, Inc.</p>
+  <p style="margin-top:6px;">Site by <a href="https://vibecodigital.com">VibeCo Digital</a></p>
+  <p class="demo-disclaimer">Unofficial preview created by <a href="https://vibecodigital.com">VibeCo Digital</a> for Exotic and Native Animals, Inc. — not affiliated with or endorsed by Exotic and Native Animals, Inc.. Business names, logos, and images belong to their respective owners and are shown here for review purposes only. To request changes or removal, contact <a href="mailto:hello@vibecodigital.com">hello@vibecodigital.com</a>.</p>
+</footer>
+
+<div class="lightbox" id="lightbox"><span class="lb-x">&times;</span><img id="lightbox-img" alt=""></div>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+// Menu category tabs — show one category at a time.
+document.querySelectorAll('.menu-tab').forEach(function (tab) {
+  tab.addEventListener('click', function () {
+    var i = tab.getAttribute('data-mi');
+    document.querySelectorAll('.menu-tab').forEach(function (t) { t.classList.toggle('active', t.getAttribute('data-mi') === i); });
+    document.querySelectorAll('.menu-panel').forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-mi') === i); });
+  });
+});
+// Image lightbox — click any photo to expand, click/esc to close.
+(function () {
+  var lb = document.getElementById('lightbox'), lbi = document.getElementById('lightbox-img');
+  if (!lb) return;
+  document.addEventListener('click', function (e) {
+    var img = e.target.closest ? e.target.closest('img[data-lb]') : null;
+    if (img) { lbi.src = img.src; lbi.alt = img.alt || ''; lb.classList.add('open'); }
+    else if (e.target === lb || e.target.className === 'lb-x') { lb.classList.remove('open'); }
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') lb.classList.remove('open'); });
+})();
+var f = document.getElementById('inquiryForm');
+if (f) f.addEventListener('submit', function (ev) {
+  ev.preventDefault();
+  var btn = f.querySelector('button'); btn.disabled = true; btn.textContent = 'Sending…';
+  fetch("https://app.vibecodigital.com/api/inquiries", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      slug: "exotic-and-native-animals",
+      name: document.getElementById('iName').value,
+      contact: document.getElementById('iContact').value,
+      message: document.getElementById('iMsg').value
+    })
+  }).then(function (r) { return r.json(); }).then(function (d) {
+    if (!d.ok) throw new Error();
+    f.style.display = 'none';
+    document.getElementById('okMsg').style.display = 'block';
+  }).catch(function () {
+    btn.disabled = false; btn.textContent = 'Send message';
+    alert('Something went wrong — please try again or call us.');
+  });
+});
+</script>
+<div id="vcfb-root">
+  <style>
+    #vcfb-bar{position:fixed;left:0;right:0;bottom:0;z-index:2147483000;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;padding:12px 16px;background:#141414;color:#F2F2F2;border-top:2px solid #E6332A;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;box-shadow:0 -6px 20px rgba(0,0,0,.35)}
+    #vcfb-bar p{margin:0;font-size:.9rem;max-width:640px}
+    #vcfb-bar b{color:#FF5252}
+    .vcfb-btn{background:#E6332A;color:#fff;border:0;border-radius:9px;padding:10px 18px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
+    .vcfb-btn:hover{opacity:.9}
+    .vcfb-btn:disabled{opacity:.5;cursor:default}
+    .vcfb-x{background:transparent;border:0;color:#888;font-size:1.5rem;cursor:pointer;line-height:1;padding:0 4px}
+    #vcfb-modal{position:fixed;inset:0;z-index:2147483001;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.6);padding:16px}
+    #vcfb-modal.on{display:flex}
+    .vcfb-card{background:#161616;color:#F2F2F2;border:1px solid #2A2A2A;border-radius:14px;max-width:520px;width:100%;padding:22px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;max-height:90vh;overflow:auto}
+    .vcfb-card h3{margin:0 0 6px;font-size:1.15rem}
+    .vcfb-card h3 span{color:#FF5252}
+    .vcfb-serious{background:rgba(230,51,42,.1);border:1px solid rgba(230,51,42,.35);border-radius:10px;padding:11px 13px;font-size:.85rem;color:#f0cfcd;margin:12px 0;line-height:1.5}
+    .vcfb-serious b{color:#fff}
+    .vcfb-card label{display:block;font-size:.72rem;color:#999;margin:14px 0 5px;text-transform:uppercase;letter-spacing:.05em}
+    .vcfb-card textarea,.vcfb-card input{width:100%;background:#0E0E0E;border:1.5px solid #2A2A2A;color:#F2F2F2;border-radius:9px;padding:11px 13px;font-size:.95rem;font-family:inherit}
+    .vcfb-card textarea:focus,.vcfb-card input:focus{outline:none;border-color:#E6332A}
+    .vcfb-rowr{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+    .vcfb-ghost{background:transparent;border:1px solid #2A2A2A;color:#ccc;border-radius:9px;padding:10px 16px;font-weight:600;cursor:pointer;font-family:inherit}
+    .vcfb-ok{color:#4ADE80;font-size:.98rem;text-align:center;padding:14px 6px;line-height:1.5}
+  </style>
+  <div id="vcfb-bar" role="region" aria-label="Demo feedback">
+    <p>👋 This is your <b>free demo</b> — like it, or want changes? Tell us and we'll make them.</p>
+    <button class="vcfb-btn" id="vcfb-open">Give feedback</button>
+    <button class="vcfb-x" id="vcfb-hide" aria-label="Hide this bar">&times;</button>
+  </div>
+  <div id="vcfb-modal" role="dialog" aria-modal="true" aria-labelledby="vcfb-title">
+    <div class="vcfb-card">
+      <div id="vcfb-form">
+        <h3 id="vcfb-title">Tell us what to change on your <span>demo</span></h3>
+        <div class="vcfb-serious"><b>Please be as detailed as you can.</b> Every note here is read and fed into our AI-assisted build system, and we turn it into real edits to your site. The more specific you are — exact wording, which section, what to add, remove, or swap, photos to use — the more we can do with it. Write as much as you like.</div>
+        <label for="vcfb-notes">Your notes</label>
+        <textarea id="vcfb-notes" rows="7" placeholder="e.g. Our hours are wrong — we're at the Vienna market till noon on Saturdays. Swap the truck photo for the one I'll email you. Add a section about seasonal flavors. Change the phone number to…"></textarea>
+        <label for="vcfb-name">Your name (optional)</label>
+        <input id="vcfb-name" type="text" placeholder="So we know who we're talking to">
+        <div id="vcfb-pinwrap" style="display:none">
+          <label for="vcfb-pin">Site PIN</label>
+          <input id="vcfb-pin" type="text" inputmode="numeric" autocomplete="off" placeholder="The code VibeCo gave you">
+          <div style="font-size:.75rem;color:#888;margin-top:5px">Opening this on a new device or a forwarded link? Enter your site PIN to leave feedback — or reopen the private link we emailed.</div>
+        </div>
+        <div id="vcfb-err" style="display:none;color:#FF6B6B;font-size:.82rem;margin-top:10px"></div>
+        <div class="vcfb-rowr">
+          <button class="vcfb-ghost" id="vcfb-cancel">Cancel</button>
+          <button class="vcfb-btn" id="vcfb-send">Send my notes</button>
+        </div>
+      </div>
+      <div id="vcfb-done" style="display:none">
+        <div class="vcfb-ok">&#10003; Got it — thank you!<br>We've received your notes and we're on it. We'll be in touch with the updated version.</div>
+        <div class="vcfb-rowr"><button class="vcfb-btn" id="vcfb-close2">Close</button></div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var API='https://vibeco-flow-api.create-1ec.workers.dev';
+    var slug='exotic-and-native-animals';
+    var TOKEN=(new URLSearchParams(location.search).get('fb')||'').trim();
+    var bar=document.getElementById('vcfb-bar'), modal=document.getElementById('vcfb-modal');
+    var errEl=document.getElementById('vcfb-err');
+    function showPin(){document.getElementById('vcfb-pinwrap').style.display='block';}
+    // No token in the URL (plain / forwarded link) → ask for the site PIN.
+    if(!TOKEN){showPin();}
+    function open(){modal.classList.add('on');document.getElementById('vcfb-notes').focus();}
+    function close(){modal.classList.remove('on');}
+    function showErr(m){errEl.textContent=m;errEl.style.display='block';}
+    document.getElementById('vcfb-open').onclick=open;
+    document.getElementById('vcfb-cancel').onclick=close;
+    document.getElementById('vcfb-hide').onclick=function(){bar.style.display='none';};
+    document.getElementById('vcfb-close2').onclick=function(){close();bar.style.display='none';};
+    modal.addEventListener('click',function(e){if(e.target===modal)close();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+    document.getElementById('vcfb-send').onclick=function(){
+      var btn=this, notes=(document.getElementById('vcfb-notes').value||'').trim();
+      errEl.style.display='none';
+      if(!notes){document.getElementById('vcfb-notes').focus();return;}
+      var name=(document.getElementById('vcfb-name').value||'').trim();
+      var pin=(document.getElementById('vcfb-pin').value||'').trim();
+      var body={notes:notes,name:name};
+      if(TOKEN){body.t=TOKEN;}
+      if(pin){body.pin=pin;}
+      if(!TOKEN && !pin){showErr('Please enter your site PIN, or open the private link we emailed you.');return;}
+      btn.disabled=true;btn.textContent='Sending…';
+      fetch(API+'/api/sites/'+slug+'/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+        .then(function(r){return r.json().then(function(d){return {s:r.status,d:d};});})
+        .then(function(res){
+          if(res.d && res.d.ok){
+            document.getElementById('vcfb-form').style.display='none';
+            document.getElementById('vcfb-done').style.display='block';
+            return;
+          }
+          btn.disabled=false;btn.textContent='Send my notes';
+          // Token missing/stale → reveal the PIN field so they can still submit.
+          if(res.s===403){showPin();showErr((res.d&&res.d.error)||'Please enter your site PIN to leave feedback.');return;}
+          showErr((res.d&&res.d.error)||'That did not send — please try again.');
+        })
+        .catch(function(){btn.disabled=false;btn.textContent='Send my notes';showErr("Sorry — that didn't send. Please try again, or just reply to our email.");});
+    };
+  })();
+  </script>
+  </div>
+</body>
+</html>
