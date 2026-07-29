@@ -4,7 +4,7 @@
   "demoUrl": "https://vibecodigital.com/demo/exotic-and-native-animals/",
   "businessName": "Exotic and Native Animals, Inc.",
   "businessType": "animal sanctuary",
-  "city": "",
+  "city": "Purgitsville, WV",
   "yearsInBusiness": "",
   "existingSiteUrl": "https://www.exoticnativeanimals.org/",
   "features": [
@@ -27,6 +27,10 @@
     "provenance": {
       "businessType": {
         "value": "animal sanctuary",
+        "from": "you provided"
+      },
+      "city": {
+        "value": "Purgitsville, WV",
         "from": "you provided"
       },
       "existingSiteUrl": {

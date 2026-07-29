@@ -2,9 +2,9 @@
   "vibecoManifest": 1,
   "generatedFrom": "prospect-intel: https://www.alenkafarm.com/ + manual reviews",
   "demoUrl": "https://vibecodigital.com/demo/alenka-farm/",
-  "businessName": "Alenka Farms",
+  "businessName": "alenka farm",
   "businessType": "farm",
-  "city": "",
+  "city": "Purgitsville, WV",
   "yearsInBusiness": "",
   "existingSiteUrl": "https://www.alenkafarm.com/",
   "features": [
@@ -27,6 +27,10 @@
     "provenance": {
       "businessType": {
         "value": "farm",
+        "from": "you provided"
+      },
+      "city": {
+        "value": "Purgitsville, WV",
         "from": "you provided"
       },
       "existingSiteUrl": {

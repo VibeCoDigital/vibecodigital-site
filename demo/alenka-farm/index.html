@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>Alenka Farms</title>
-<meta name="description" content="Alenka Farms · farm">
+<title>alenka farm — Purgitsville, WV</title>
+<meta name="description" content="alenka farm · farm · Purgitsville, WV">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2212%22%20fill%3D%22%233f6b35%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-size%3D%2238%22%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%20font-weight%3D%22bold%22%20fill%3D%22%23ffffff%22%20text-anchor%3D%22middle%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Alenka Farms">
-<meta property="og:description" content="Alenka Farms · farm">
+<meta property="og:title" content="alenka farm — Purgitsville, WV">
+<meta property="og:description" content="alenka farm · farm · Purgitsville, WV">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@600;800&amp;family=Inter:wght@400;600;700&amp;display=swap">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -39,6 +39,19 @@ nav{position:sticky;top:0;background:rgba(255,253,249,0.95);backdrop-filter:blur
 .hero.hero-photo p{color:rgba(255,255,255,.94);text-shadow:0 1px 10px rgba(0,0,0,.5)}
 .hero.hero-photo .eyebrow{background:rgba(255,255,255,.16);color:#fff;backdrop-filter:blur(4px)}
 .ph-badge{position:absolute;top:12px;right:12px;z-index:2;background:rgba(0,0,0,.55);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.03em;padding:5px 11px;border-radius:100px;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.25)}
+/* Hero variant: split — photo beside text (Axis 1, cfg.heroStyle:'split'). */
+.hero-split{text-align:left;padding:56px 0}
+.hero-split-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}
+.hero-split-text{text-align:left}
+.hero-split-text p{margin:0 0 22px;max-width:520px}
+.hero-split .cta{justify-content:flex-start}
+.hero-split-media{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--border);aspect-ratio:4/3;background:var(--card)}
+.hero-split-media img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:760px){.hero-split,.hero-split-text{text-align:center}.hero-split-inner{grid-template-columns:1fr;gap:22px}.hero-split-text p{margin:0 auto 22px}.hero-split .cta{justify-content:center}.hero-split-media{aspect-ratio:16/9}}
+/* Hero variant: minimal — type-only, airy (Axis 1, cfg.heroStyle:'minimal'). */
+.hero-minimal{padding:clamp(72px,13vw,120px) 0}
+.hero-minimal h1{font-size:clamp(2.40rem,7.00vw,4.20rem)}
+.hero-minimal p{font-size:1.12rem;max-width:600px}
 .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:100px;border:none;font-size:.93rem;font-weight:700;cursor:pointer;text-decoration:none;transition:transform .15s;}
 .btn:hover{transform:translateY(-1px)}
@@ -84,7 +97,12 @@ section.alt{background-color:var(--band);background-image:url("data:image/svg+xm
 .story-h{font-size:1.22rem;font-weight:800;letter-spacing:-.2px;margin-bottom:10px;}
 .story-item p{color:var(--muted);font-size:1.02rem;line-height:1.75;margin-bottom:9px}
 .story-item p:last-child{margin-bottom:0}
-@media(max-width:640px){.story-item{padding-left:16px}}
+.story--media{max-width:1000px}
+.story-item--media{border-left:0;padding-left:0;display:grid;grid-template-columns:.85fr 1.15fr;gap:28px;align-items:center}
+.story-item--media .story-media{border-radius:14px;overflow:hidden;aspect-ratio:4/3;background:#3f6b3514}
+.story-item--media .story-media img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in}
+.story-item--media.story-item--flip .story-media{order:2}
+@media(max-width:640px){.story-item{padding-left:16px}.story-item--media{grid-template-columns:1fr;gap:14px}.story-item--media.story-item--flip .story-media{order:0}}
 .section-note{text-align:center;color:var(--muted);font-size:.85rem;margin:-8px auto 22px;max-width:560px}
 .sample-tag{display:inline-block;vertical-align:middle;background:#3f6b351c;color:var(--accent);font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid #3f6b3555}
 .menu-tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:26px}
@@ -139,7 +157,7 @@ footer a{color:var(--accent);text-decoration:none;font-weight:700}
 <body>
 <div class="preview-bar">🔧 Preview build — content is being finalized with the owner. Built by VibeCo Digital.</div>
 <nav><div class="nav-inner">
-  <img class="nav-logo" src="assets/logo.jpg" alt="Alenka Farms">
+  <img class="nav-logo" src="assets/logo.jpg" alt="alenka farm">
   <div class="nav-links"><a href="#story">More</a><a href="#why">Why us</a><a href="#menu">Services</a><a href="#gallery">Photos</a><a href="#find">Find us</a><a href="#contact">Inquiry</a><a href="#reach">Contact</a></div>
   <a class="btn btn-primary" style="padding:8px 16px;font-size:.85rem;" href="tel:17033386058">📞 Call</a>
 </div></nav>
@@ -148,8 +166,8 @@ footer a{color:var(--accent);text-decoration:none;font-weight:700}
   
   <div class="container">
   <span class="eyebrow">Fresh Harvest · Local Farm</span>
-  <h1>Alenka Farms</h1>
-  <p>Serving our local community.</p>
+  <h1>alenka farm</h1>
+  <p>Proudly serving Purgitsville, WV.</p>
   <div class="cta">
     <a class="btn btn-primary" href="#menu">📋 See services</a>
     
@@ -159,15 +177,9 @@ footer a{color:var(--accent);text-decoration:none;font-weight:700}
   </div>
 </header>
 
+<section id="story"><div class="container"><div class="story story--media"><article class="story-item story-item--media"><div class="story-media"><img data-lb loading="lazy" src="assets/hero.jpg" alt="All Natural and Organic - the main reason behind our farm"></div><div class="story-copy"><h3 class="story-h">All Natural and Organic - the main reason behind our farm</h3><p>The main purpose of our farm is to raise all-natural, pesticide- and hormone-free animals and birds. We let our poultry walk outside every day, which is why their eggs are so delicious.</p></div></article><article class="story-item story-item--media story-item--flip"><div class="story-media"><img data-lb loading="lazy" src="assets/site-photo-1.jpg" alt="Free Range Chickens"></div><div class="story-copy"><h3 class="story-h">Free Range Chickens</h3><p>We love our chickens! They are truly free-range, going outside every day to look for insects and fresh greens. We have several chicken breeds, and their eggs come in white, brown, blue, and green colors.</p></div></article><article class="story-item story-item--media"><div class="story-media"><img data-lb loading="lazy" src="assets/site-photo-2.jpg" alt="Best friends and helpers"></div><div class="story-copy"><h3 class="story-h">Best friends and helpers</h3><p>King Rex</p><p>Our Great Pyrenees are free-range livestock guardian dogs. They do not know a leash or chain. They are very strong and healthy, running around 22 acres of farm. A few years ago we had many problems with our chickens and rabbits because of foxes and coyotes. Now there are no coyotes or foxes around! Our chickens and ducks are walking in the woods and coming back in the evening and they all are alive!</p><p>For the last two years, we did not lose any birds to predators! You are welcome to visit our farm in WV and observe all our animals.</p><p>This is Anny, our Standard Poodle.</p><p>This is Kelly. She is very scent-sensitive, and is very helpful in tracking deer during hunting season.</p><p>Yodi, he is Kelly&#39;s brother. He can smile!</p></div></article><article class="story-item story-item--media story-item--flip"><div class="story-media"><img data-lb loading="lazy" src="assets/site-photo-3.png" alt="Hedgehogs"></div><div class="story-copy"><h3 class="story-h">Hedgehogs</h3><p>We have several African hedgehogs. They are almost white in color. Here are a few interesting facts about these nocturnal animals. Each hedgehog has around 5,000 spines — each of which lasts about a year.</p><p>As they move through the hedges looking for worms and insects, they make a piggy grunting noise. Hence, hedgehog.</p><p>They will eat slugs, beetles, caterpillars, etc., and do no harm to gardens.</p><p>Hedgehogs are not affected by snake venom.</p></div></article><article class="story-item story-item--media"><div class="story-media"><img data-lb loading="lazy" src="assets/site-photo-4.png" alt="Chickens and Ducks"></div><div class="story-copy"><h3 class="story-h">Chickens and Ducks</h3><p>Live Roosters</p><p>Price for roosters depends on size, breed, and age. Usually it is between $10 and $25.</p><p>Live Peking Ducks (males)</p><p>Our ducks roam in our pastures eating bugs and grubs in the soil, and are also offered a non-GMO supplement, which contains grains like corn, soy, barley, and wheat. They never receive antibiotics, artificial growth hormones, or steroids. Price for large live duck $15.</p></div></article></div></div></section>
 
-
-
-
-
-
-<section id="story"><div class="container"><div class="story"><article class="story-item"><h3 class="story-h">All Natural and Organic - the main reason behind our farm</h3><p>The main purpose of our farm is raising all natural, pesticide and hormone free animals and birds. We let our poultry to walk outside every day, that is why their eggs are so delicious.</p></article><article class="story-item"><h3 class="story-h">Free Range Chickens</h3><p>We love our chickens! They are truly free range, going everyday outside and looking for insects and fresh greens.</p><p>We have several chicken breeds and their eggs are white, brown, blue and green.</p></article><article class="story-item"><h3 class="story-h">Best friends and helpers</h3><p>King Rex</p><p>Our Great Pyrenees are free range livestock guardian dogs. They do not know a leash or chain. They are very strong and healthy, running around 22 acres farm. A few years ago we had many problems with our chickens and rabbits because of foxes and coyotes. Now there are no coyotes or foxes around! Our chickens and ducks are walking in the woods and coming back in the evening and they all are alive!</p><p>For the last two years, we did not lose any birds to predators! You are welcome to visit our farm in WV and observe all our animals.</p><p>This is Anny, our Standard Poodle.</p><p>This is Kelly. She is very scent sensitives, and is very helpful in tracking deer during hunting season.</p><p>Yodi, he is Kelly&#39;s brother. He can smile!</p></article><article class="story-item"><h3 class="story-h">Hedgehogs</h3><p>We have several African hedgehogs. They are almost white color. Here are few interesting facts about these nocturnal animals. Each hedgie has around 5,000 spines — each of which lasts about a year.</p><p>As they move through the hedges looking for worms and insects, they make a piggy grunting noise. Hence, hedge-hog.</p><p>They will eat slugs, beetles, caterpillars, etc., and do no harm gardens.</p><p>Hedgehogs are not affected by snakes venom.</p></article><article class="story-item"><h3 class="story-h">Chickens and Ducks</h3><p>Live Roosters</p><p>Price for roosters depends on size, breed and age. Usually it is between $10 and $25.</p><p>Live Peking Ducks (males)</p><p>Our ducks roam in our pastures eating bugs and grubs in the soil, and are also offered a non-GMO supplement, which contains grains like corn, soy, barley and wheat. They never receive antibiotics, artificial growth hormones or steroids. Price for large live duck $15.</p></article></div></div></section>
-
-<section id="why" class="alt alt-photo" style="--section-photo:url('assets/site-photo-2.jpg')"><div class="container"><h2>Why Alenka Farms</h2><div class="hl-strip"><div class="hl-item"><div class="hl-icon">🐣</div><div class="hl-t">What they raise &amp; sell</div><div class="hl-d">Chickens, Ducks, Rabbits, Hedgehogs, Kittens, and more — confirm current availability with the owner.</div></div><div class="hl-item"><div class="hl-icon">⭐</div><div class="hl-t">Trusted locally</div><div class="hl-d">A local business your neighbors rely on.</div></div><div class="hl-item"><div class="hl-icon">🤝</div><div class="hl-t">Personal service</div><div class="hl-d">Straightforward, friendly, one-on-one service.</div></div></div></div></section>
+<section id="why" class="alt alt-photo" style="--section-photo:url('assets/site-photo-2.jpg')"><div class="container"><h2>Why alenka farm</h2><div class="hl-strip"><div class="hl-item"><div class="hl-icon">🐣</div><div class="hl-t">What they raise &amp; sell</div><div class="hl-d">Chickens, Ducks, Rabbits, Hedgehogs, Kittens, and more — confirm current availability with the owner.</div></div><div class="hl-item"><div class="hl-icon">⭐</div><div class="hl-t">Trusted locally</div><div class="hl-d">A local business your neighbors rely on.</div></div><div class="hl-item"><div class="hl-icon">🤝</div><div class="hl-t">Personal service</div><div class="hl-d">Straightforward, friendly, one-on-one service.</div></div></div></div></section>
 
 <section id="menu"><div class="container">
   <h2>Our services <span class="sample-tag" title="Sample layout — real items &amp; prices finalized with the owner.">Sample</span></h2>
@@ -177,16 +189,14 @@ footer a{color:var(--accent);text-decoration:none;font-weight:700}
   
 </div></section>
 
-
-
-<section id="gallery"><div class="container"><h2>Photos</h2><div class="shots"><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-1.jpg" alt="Alenka Farms — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-2.jpg" alt="Alenka Farms — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-3.jpg" alt="Alenka Farms — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-4.jpg" alt="Alenka Farms — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-5.jpg" alt="Alenka Farms — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-6.jpg" alt="Alenka Farms — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-7.jpg" alt="Alenka Farms — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-8.png" alt="Alenka Farms — real photo"></figure></div></div></section>
+<section id="gallery"><div class="container"><h2>Photos</h2><div class="shots"><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-1.jpg" alt="alenka farm — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-2.jpg" alt="alenka farm — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-3.png" alt="alenka farm — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-4.png" alt="alenka farm — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-5.jpg" alt="alenka farm — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-6.jpg" alt="alenka farm — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-7.jpg" alt="alenka farm — real photo"></figure><figure class="shot"><img data-lb loading="lazy" src="assets/site-photo-8.jpg" alt="alenka farm — real photo"></figure></div></div></section>
 
 <section id="find" class="alt"><div class="container"><h2>Find us</h2><div class="find-grid"><div class="find-info"><div class="find-block"><div class="find-label">📍 Address</div><p>1251 Mud Run Rd., Purgitsville, WV 26852</p><a class="find-link" target="_blank" rel="noopener" href="https://maps.google.com/maps?q=1251%20Mud%20Run%20Rd.%2C%20Purgitsville%2C%20WV%2026852">Get directions →</a></div><div class="find-block"><div class="find-label">🕒 Hours</div><table class="hours"><tr><td>Mon – Sat</td><td>By appointment</td></tr><tr><td>Sunday</td><td>Closed</td></tr></table></div><div class="find-block"><div class="find-label">📞 Phone</div><p><a href="tel:17033386058">+17033386058</a></p></div></div><div class="map-wrap"><iframe title="Map" loading="lazy" src="https://maps.google.com/maps?q=1251%20Mud%20Run%20Rd.%2C%20Purgitsville%2C%20WV%2026852&z=15&output=embed"></iframe></div></div></div></section>
 
 
 <section id="contact"><div class="container">
   <h2>Get in touch</h2>
-  <p class="demo-form-note">This is a preview site. This form is <strong>not monitored by Alenka Farms</strong> — messages go to VibeCo Digital for demonstration only. To reach the business, please use its official contact details.</p>
+  <p class="demo-form-note">This is a preview site. This form is <strong>not monitored by alenka farm</strong> — messages go to VibeCo Digital for demonstration only. To reach the business, please use its official contact details.</p>
   <div class="contact-box">
     <form id="inquiryForm">
       <div class="field"><label for="iName">Your name</label><input id="iName" type="text"></div>
@@ -210,9 +220,9 @@ footer a{color:var(--accent);text-decoration:none;font-weight:700}
 </div></section>
 
 <footer>
-  <p>© <span id="yr"></span> Alenka Farms</p>
+  <p>© <span id="yr"></span> alenka farm · Purgitsville, WV</p>
   <p style="margin-top:6px;">Site by <a href="https://vibecodigital.com">VibeCo Digital</a></p>
-  <p class="demo-disclaimer">Unofficial preview created by <a href="https://vibecodigital.com">VibeCo Digital</a> for Alenka Farms — not affiliated with or endorsed by Alenka Farms. Business names, logos, and images belong to their respective owners and are shown here for review purposes only. To request changes or removal, contact <a href="mailto:hello@vibecodigital.com">hello@vibecodigital.com</a>.</p>
+  <p class="demo-disclaimer">Unofficial preview created by <a href="https://vibecodigital.com">VibeCo Digital</a> for alenka farm — not affiliated with or endorsed by alenka farm. Business names, logos, and images belong to their respective owners and are shown here for review purposes only. To request changes or removal, contact <a href="mailto:hello@vibecodigital.com">hello@vibecodigital.com</a>.</p>
 </footer>
 
 <div class="lightbox" id="lightbox"><span class="lb-x">&times;</span><img id="lightbox-img" alt=""></div>
@@ -261,107 +271,5 @@ if (f) f.addEventListener('submit', function (ev) {
   });
 });
 </script>
-<div id="vcfb-root">
-  <style>
-    #vcfb-bar{position:fixed;left:0;right:0;bottom:0;z-index:2147483000;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;padding:12px 16px;background:#141414;color:#F2F2F2;border-top:2px solid #E6332A;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;box-shadow:0 -6px 20px rgba(0,0,0,.35)}
-    #vcfb-bar p{margin:0;font-size:.9rem;max-width:640px}
-    #vcfb-bar b{color:#FF5252}
-    .vcfb-btn{background:#E6332A;color:#fff;border:0;border-radius:9px;padding:10px 18px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
-    .vcfb-btn:hover{opacity:.9}
-    .vcfb-btn:disabled{opacity:.5;cursor:default}
-    .vcfb-x{background:transparent;border:0;color:#888;font-size:1.5rem;cursor:pointer;line-height:1;padding:0 4px}
-    #vcfb-modal{position:fixed;inset:0;z-index:2147483001;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.6);padding:16px}
-    #vcfb-modal.on{display:flex}
-    .vcfb-card{background:#161616;color:#F2F2F2;border:1px solid #2A2A2A;border-radius:14px;max-width:520px;width:100%;padding:22px;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;max-height:90vh;overflow:auto}
-    .vcfb-card h3{margin:0 0 6px;font-size:1.15rem}
-    .vcfb-card h3 span{color:#FF5252}
-    .vcfb-serious{background:rgba(230,51,42,.1);border:1px solid rgba(230,51,42,.35);border-radius:10px;padding:11px 13px;font-size:.85rem;color:#f0cfcd;margin:12px 0;line-height:1.5}
-    .vcfb-serious b{color:#fff}
-    .vcfb-card label{display:block;font-size:.72rem;color:#999;margin:14px 0 5px;text-transform:uppercase;letter-spacing:.05em}
-    .vcfb-card textarea,.vcfb-card input{width:100%;background:#0E0E0E;border:1.5px solid #2A2A2A;color:#F2F2F2;border-radius:9px;padding:11px 13px;font-size:.95rem;font-family:inherit}
-    .vcfb-card textarea:focus,.vcfb-card input:focus{outline:none;border-color:#E6332A}
-    .vcfb-rowr{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
-    .vcfb-ghost{background:transparent;border:1px solid #2A2A2A;color:#ccc;border-radius:9px;padding:10px 16px;font-weight:600;cursor:pointer;font-family:inherit}
-    .vcfb-ok{color:#4ADE80;font-size:.98rem;text-align:center;padding:14px 6px;line-height:1.5}
-  </style>
-  <div id="vcfb-bar" role="region" aria-label="Demo feedback">
-    <p>👋 This is your <b>free demo</b> — like it, or want changes? Tell us and we'll make them.</p>
-    <button class="vcfb-btn" id="vcfb-open">Give feedback</button>
-    <button class="vcfb-x" id="vcfb-hide" aria-label="Hide this bar">&times;</button>
-  </div>
-  <div id="vcfb-modal" role="dialog" aria-modal="true" aria-labelledby="vcfb-title">
-    <div class="vcfb-card">
-      <div id="vcfb-form">
-        <h3 id="vcfb-title">Tell us what to change on your <span>demo</span></h3>
-        <div class="vcfb-serious"><b>Please be as detailed as you can.</b> Every note here is read and fed into our AI-assisted build system, and we turn it into real edits to your site. The more specific you are — exact wording, which section, what to add, remove, or swap, photos to use — the more we can do with it. Write as much as you like.</div>
-        <label for="vcfb-notes">Your notes</label>
-        <textarea id="vcfb-notes" rows="7" placeholder="e.g. Our hours are wrong — we're at the Vienna market till noon on Saturdays. Swap the truck photo for the one I'll email you. Add a section about seasonal flavors. Change the phone number to…"></textarea>
-        <label for="vcfb-name">Your name (optional)</label>
-        <input id="vcfb-name" type="text" placeholder="So we know who we're talking to">
-        <div id="vcfb-pinwrap" style="display:none">
-          <label for="vcfb-pin">Site PIN</label>
-          <input id="vcfb-pin" type="text" inputmode="numeric" autocomplete="off" placeholder="The code VibeCo gave you">
-          <div style="font-size:.75rem;color:#888;margin-top:5px">Opening this on a new device or a forwarded link? Enter your site PIN to leave feedback — or reopen the private link we emailed.</div>
-        </div>
-        <div id="vcfb-err" style="display:none;color:#FF6B6B;font-size:.82rem;margin-top:10px"></div>
-        <div class="vcfb-rowr">
-          <button class="vcfb-ghost" id="vcfb-cancel">Cancel</button>
-          <button class="vcfb-btn" id="vcfb-send">Send my notes</button>
-        </div>
-      </div>
-      <div id="vcfb-done" style="display:none">
-        <div class="vcfb-ok">&#10003; Got it — thank you!<br>We've received your notes and we're on it. We'll be in touch with the updated version.</div>
-        <div class="vcfb-rowr"><button class="vcfb-btn" id="vcfb-close2">Close</button></div>
-      </div>
-    </div>
-  </div>
-  <script>
-  (function(){
-    var API='https://vibeco-flow-api.create-1ec.workers.dev';
-    var slug='alenka-farm';
-    var TOKEN=(new URLSearchParams(location.search).get('fb')||'').trim();
-    var bar=document.getElementById('vcfb-bar'), modal=document.getElementById('vcfb-modal');
-    var errEl=document.getElementById('vcfb-err');
-    function showPin(){document.getElementById('vcfb-pinwrap').style.display='block';}
-    // No token in the URL (plain / forwarded link) → ask for the site PIN.
-    if(!TOKEN){showPin();}
-    function open(){modal.classList.add('on');document.getElementById('vcfb-notes').focus();}
-    function close(){modal.classList.remove('on');}
-    function showErr(m){errEl.textContent=m;errEl.style.display='block';}
-    document.getElementById('vcfb-open').onclick=open;
-    document.getElementById('vcfb-cancel').onclick=close;
-    document.getElementById('vcfb-hide').onclick=function(){bar.style.display='none';};
-    document.getElementById('vcfb-close2').onclick=function(){close();bar.style.display='none';};
-    modal.addEventListener('click',function(e){if(e.target===modal)close();});
-    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
-    document.getElementById('vcfb-send').onclick=function(){
-      var btn=this, notes=(document.getElementById('vcfb-notes').value||'').trim();
-      errEl.style.display='none';
-      if(!notes){document.getElementById('vcfb-notes').focus();return;}
-      var name=(document.getElementById('vcfb-name').value||'').trim();
-      var pin=(document.getElementById('vcfb-pin').value||'').trim();
-      var body={notes:notes,name:name};
-      if(TOKEN){body.t=TOKEN;}
-      if(pin){body.pin=pin;}
-      if(!TOKEN && !pin){showErr('Please enter your site PIN, or open the private link we emailed you.');return;}
-      btn.disabled=true;btn.textContent='Sending…';
-      fetch(API+'/api/sites/'+slug+'/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
-        .then(function(r){return r.json().then(function(d){return {s:r.status,d:d};});})
-        .then(function(res){
-          if(res.d && res.d.ok){
-            document.getElementById('vcfb-form').style.display='none';
-            document.getElementById('vcfb-done').style.display='block';
-            return;
-          }
-          btn.disabled=false;btn.textContent='Send my notes';
-          // Token missing/stale → reveal the PIN field so they can still submit.
-          if(res.s===403){showPin();showErr((res.d&&res.d.error)||'Please enter your site PIN to leave feedback.');return;}
-          showErr((res.d&&res.d.error)||'That did not send — please try again.');
-        })
-        .catch(function(){btn.disabled=false;btn.textContent='Send my notes';showErr("Sorry — that didn't send. Please try again, or just reply to our email.");});
-    };
-  })();
-  </script>
-  </div>
 </body>
 </html>
