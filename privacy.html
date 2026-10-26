@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — Track the Track | VibeCo Digital</title>
-  <meta name="description" content="Privacy policy for Track the Track by VibeCo Digital. We don't collect personal data.">
+  <meta name="description" content="Privacy policy for Track the Track by VibeCo Digital. No account, no tracking, no ads; anonymous usage notes only.">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -130,58 +130,90 @@
   <div class="page-header">
     <span class="app-tag">Track the Track</span>
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: September 7, 2026</p>
+    <p class="updated">Last updated: October 26, 2026</p>
   </div>
 
   <div class="summary-card">
-    <strong>Short version:</strong> Track the Track does not collect, store, or share any personal information. No account is required. No tracking. No ads (yet). Your preferences stay on your device.
+    <strong>Short version:</strong> No account. No name, email or device ID. No location access. No tracking. No ads, ever. The app sends anonymous usage notes to our own server &mdash; which screens you open, which settings you change, and which stations you add to or remove from your favourites &mdash; with nothing attached that identifies you or your phone. Some of your settings are used to fetch train data, so a station code can leave your phone with a request. Maps are loaded from OpenStreetMap. Details below.
   </div>
 
   <h2>1. Information We Collect</h2>
-  <p>Track the Track does <strong>not</strong> collect personal information. The app does not require an account, email address, name, or any identifying information to use.</p>
-  <p>The following preferences are saved <strong>locally on your device only</strong> using standard device storage. They are never transmitted to any server:</p>
+  <p>Track the Track does <strong>not</strong> collect personal information. You don't need an account, email address, name, or anything else that identifies you.</p>
+  <p>The app does <strong>not</strong> ask for your location.</p>
+  <p>Your settings are saved on your phone. That includes your origin station, favourite stations, favourite lines, the rail systems you ride, message style, step-free access, Advanced settings, map layers, your last few planned trips, and game scores. On Android, the app turns off Google's automatic backup of these settings.</p>
+  <p>Some of them do leave your phone, in two ways:</p>
   <ul>
-    <li>Your home station selection</li>
-    <li>Favorite stations</li>
-    <li>Display settings (Basic / Advanced mode, feature toggles)</li>
+    <li><strong>When you change them, we get an anonymous note of the change.</strong> Adding or removing a favourite sends the station or stop code (for example &ldquo;favourite added: Metro A01&rdquo;). Setting or clearing an origin station sends at most the rail system (Metro, VRE or MARC), never the station. Turning a setting on or off sends the setting's name and new value &mdash; for example Advanced mode, a map layer, VRE or MARC on or off, alerts for a system, message style, or step-free access. Choosing a favourite VRE or MARC line sends only &ldquo;set&rdquo; or &ldquo;none&rdquo;, not the line. See section 6 for what these notes contain.</li>
+    <li><strong>Some settings are used to fetch data.</strong> Your origin station's code is sent with a request (not stored by us) when the Android home-screen widget refreshes, about every 15 minutes while a widget is on your home screen, and when the Home screen checks elevator outages at your origin, if step-free access is on. The rail systems you've turned on are sent when the app checks VRE and MARC alerts.</li>
   </ul>
-  <p>The app does <strong>not</strong> request access to your device's location.</p>
+  <p>Your planned-trip history, &ldquo;which car&rdquo; choices and game scores never leave your phone.</p>
 
   <h2>2. How the App Works</h2>
-  <p>When you open a station or view train arrivals, the app makes requests to our backend server (hosted on Cloudflare Workers at api.vibecodigital.com) to retrieve real-time train data, weather conditions, and service alerts for the rail systems the app covers — WMATA Metrorail, Virginia Railway Express (VRE), and MARC commuter rail. These requests include:</p>
+  <p>The app gets train data, weather and service alerts from our own server, hosted on Cloudflare at api.vibecodigital.com. It covers WMATA Metrorail, Virginia Railway Express (VRE) and MARC commuter rail.</p>
+  <p>Some requests happen when you tap something &mdash; opening a station, the trip planner, a line or Metro Insights. Others happen on their own while the app is open: the app checks for Metro incidents and VRE/MARC alerts about once a minute, and sends one anonymous &ldquo;app started&rdquo; note each time it launches. The Android widget refreshes in the background, as described in section 1.</p>
+  <p>Requests to our server can include:</p>
   <ul>
-    <li>The station or stop code you are viewing (e.g. "A01" for Metro Center, or the equivalent stop identifier for a VRE or MARC station)</li>
-    <li>Standard HTTP request metadata (IP address, device type, request timestamp) — logged automatically by Cloudflare per their standard infrastructure practices</li>
+    <li>The station or stop code you're looking at (for example &ldquo;A01&rdquo; for Metro Center), a line code, or a train or trip number you're following</li>
+    <li>A pair of stations, when you look up a fare</li>
+    <li>Your origin station's code, in the cases listed in section 1</li>
   </ul>
-  <p>No personally identifiable information is attached to these requests. The station code is not linked to your identity.</p>
+  <p>Like any internet request, each one also carries your phone's IP address and the time. The app identifies itself only as a generic app client (&ldquo;Dart&rdquo;), which doesn't name your phone or its operating system. Nothing that identifies you is added. Our server does not read or store your IP address.</p>
+  <p>Links to other websites open in your own browser, and phone numbers open in your dialer. The app adds nothing to those visits; that site's own privacy policy applies.</p>
 
   <h2>3. Third-Party Services</h2>
-  <p>Track the Track retrieves data from the following third-party services. We do not control their privacy practices.</p>
+  <p>We do not control these services' privacy practices.</p>
+  <p><strong>Your phone contacts this service directly:</strong></p>
   <ul>
-    <li><strong>Washington Metropolitan Area Transit Authority (WMATA)</strong> — provides real-time train predictions, service alerts, and elevator/escalator status. See <a href="https://www.wmata.com/about/records/public_docs/upload/WMATA-Privacy-Policy-2019.pdf" target="_blank" rel="noopener">WMATA's Privacy Policy</a>.</li>
-    <li><strong>Virginia Railway Express (VRE)</strong> — provides published timetables, live train positions, and service alerts for the Fredericksburg and Manassas lines via its public GTFS feeds. No personal data is sent. See <a href="https://www.vre.org" target="_blank" rel="noopener">vre.org</a>.</li>
-    <li><strong>Maryland Transit Administration (MTA Maryland)</strong> — provides published timetables, live train positions, and service alerts for MARC commuter rail via its public GTFS feeds. No personal data is sent. See <a href="https://www.mta.maryland.gov" target="_blank" rel="noopener">mta.maryland.gov</a>.</li>
-    <li><strong>Open-Meteo</strong> — provides current weather conditions based on station coordinates. No personal data is sent. See <a href="https://open-meteo.com/en/terms" target="_blank" rel="noopener">Open-Meteo's Terms</a>.</li>
-    <li><strong>Cloudflare</strong> — hosts our backend infrastructure. Cloudflare may process request metadata per their standard practices. See <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare's Privacy Policy</a>.</li>
+    <li><strong>OpenStreetMap Foundation (OSMF)</strong> &mdash; draws the map tiles. Your phone downloads map images from tile.openstreetmap.org when it shows a station's mini-map, and for the interactive Map tab. If the interactive map is on for you (always for VRE and MARC riders; for Metro riders when Advanced &rarr; Interactive map is on), the Map tab loads in the background when the app starts, even if you never open it, centred on your Metro origin station or, if you haven't set one, Metro Center. OSMF receives your IP address, the app's name (&ldquo;flutter_map (com.trackthetrack.app)&rdquo;), and which map squares were loaded &mdash; which shows the area being viewed, such as a station you opened or your Metro origin station. See the <a href="https://osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener">OSMF Privacy Policy</a>.</li>
   </ul>
+  <p><strong>Our server contacts these services. None of them receives anything about you</strong> &mdash; no IP address, device detail or setting; only station codes, station locations or nothing at all:</p>
+  <ul>
+    <li><strong>Washington Metropolitan Area Transit Authority (WMATA)</strong> &mdash; real-time train predictions, service alerts, elevator/escalator status and fares. Data source: <a href="https://www.wmata.com" target="_blank" rel="noopener">wmata.com</a>. See <a href="https://www.wmata.com/about/public-records/privacy.html" target="_blank" rel="noopener">WMATA's Privacy Policy</a>.</li>
+    <li><strong>Virginia Railway Express (VRE)</strong> &mdash; published timetables, live train positions and service alerts through its public GTFS feeds. See <a href="https://www.vre.org" target="_blank" rel="noopener">vre.org</a>.</li>
+    <li><strong>Maryland Transit Administration (MTA Maryland)</strong> &mdash; published timetables, live train positions and service alerts for MARC through its public GTFS feeds (some files are hosted on Amazon Web Services). See <a href="https://www.mta.maryland.gov" target="_blank" rel="noopener">mta.maryland.gov</a>.</li>
+    <li><strong>Open-Meteo</strong> &mdash; current weather, looked up by station location. See <a href="https://open-meteo.com/en/terms" target="_blank" rel="noopener">Open-Meteo's Terms</a>.</li>
+    <li><strong>Wikipedia</strong> &mdash; short station descriptions, looked up by station name.</li>
+    <li><strong>OpenStreetMap data services (Overpass)</strong> &mdash; nearby places and bus stops, looked up by station location.</li>
+    <li><strong>Resend</strong> &mdash; sends us (the developer) service-outage emails. No rider data.</li>
+  </ul>
+  <p><strong>Our host:</strong></p>
+  <ul>
+    <li><strong>Cloudflare</strong> &mdash; runs our server and database. Cloudflare sees each request's IP address and time as part of running the service, and uses the IP address to limit how many requests one connection can make in a few seconds. See <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare's Privacy Policy</a>.</li>
+  </ul>
+  <p><strong>On iOS only:</strong> <strong>Apple</strong> handles optional tips (section 7).</p>
 
   <h2>4. Data Retention</h2>
-  <p>Our backend database retains anonymized transit data (train arrival patterns, incident history, elevator outage history, published timetables, and service alerts) for analytical purposes. This data contains only transit information published by the transit agencies themselves — WMATA, VRE, and MTA Maryland — and no user identifiers, no device IDs, and no IP addresses are stored in the database.</p>
-  <p>Raw request logs are retained by Cloudflare per their standard log retention policies.</p>
+  <p>Our database holds two kinds of data.</p>
+  <p><strong>Transit data</strong>, for history and reliability stats: train arrival patterns, incident history, elevator outage history, published timetables, service alerts, and a cache of fares for station pairs that riders have looked up (the station pair and when it was last refreshed, with no record of who asked).</p>
+  <p><strong>Anonymous usage notes</strong> (section 6): each one is kept as it arrived for <strong>90 days</strong>, then deleted. Before that, it is added to a <strong>daily count</strong> (for example &ldquo;Metro A01 added as a favourite: 3 times on this day&rdquo;), and the daily counts are <strong>kept indefinitely</strong>. A short-lived counter used to cap how many notes we accept per day is deleted after 2 days.</p>
+  <p>No user identifiers, device IDs or IP addresses are stored in our database.</p>
+  <p>We have not turned on request logging for our server, so we keep no log of individual requests. Cloudflare may keep its own records of requests, which can include IP addresses, under its own policy.</p>
 
   <h2>5. Children's Privacy</h2>
-  <p>Track the Track does not knowingly collect any information from children under 13. The app contains no mechanisms to collect personal information from any user, regardless of age.</p>
+  <p>Track the Track does not knowingly collect personal information from children under 13. The app has no way to collect personal information from anyone, whatever their age. The anonymous usage notes in section 6 are collected the same way for every user and identify no one.</p>
 
   <h2>6. Analytics and Advertising</h2>
-  <p>To understand which features are used and improve the app, Track the Track logs <strong>anonymous, non-personal usage events</strong> to our own backend — for example, that an arrival screen or the trip planner was opened, along with the app version. These events contain <strong>no personal data, no device identifiers, and no location</strong>, and are never linked to your identity.</p>
+  <p>To see which features are used and make the app better, the app sends <strong>anonymous usage notes</strong> to our own server.</p>
+  <p>Each note is just two things: a short event name and the app's version number. Our server adds the time it arrived. There is no user ID, device ID, install ID, session ID or location in it, and we don't store the IP address it came from &mdash; so notes can't be linked to you, or to each other.</p>
+  <p>Event names cover:</p>
+  <ul>
+    <li>The app starting, and which tab or screen you open (for example the arrivals board or the trip planner)</li>
+    <li>Which Metro line or VRE/MARC line page you open</li>
+    <li><strong>Adding or removing a favourite station &mdash; including that station's code</strong></li>
+    <li>Setting or clearing an origin station (the rail system only, not the station)</li>
+    <li>Turning settings on or off, including Advanced mode, map layers, the rail systems you ride, alerts for a system, message style, and <strong>step-free access</strong> (an accessibility setting)</li>
+    <li>Using search, opening a fare or train screen, following a train, and playing the hidden games</li>
+  </ul>
+  <p>There is no switch to turn these notes off. Test builds don't send them.</p>
+  <p><strong>Popular stations.</strong> The &ldquo;Popular among TTT users&rdquo; list in Metro Insights, which anyone using the app can see, is built from these notes: it counts how many times each Metro station has been added as a favourite, minus removals, over all time. It also shows how often each station was chosen as a home station by versions of the app built before June 16, 2026, which sent that choice; current versions don't. The list shows totals per station only, never who chose what.</p>
   <p>The app uses <strong>no third-party analytics SDKs</strong> (such as Google Analytics or Firebase) and carries <strong>no advertising</strong>. This is permanent, not a description of the current version: Track the Track is not ad-supported, contains no advertising SDKs, and will not carry advertising.</p>
 
   <h2>7. In-App Purchases</h2>
-  <p>On iOS, Track the Track offers optional tips that support continued development. These are processed entirely by <strong>Apple</strong> through the App Store. We never see or receive your payment details, card information, or billing address — Apple provides us only anonymous, aggregated sales totals.</p>
+  <p>On iOS, Track the Track offers optional tips that support continued development. They are processed entirely by <strong>Apple</strong> through the App Store. The app sends nothing about a tip to our server, and we never see or receive your payment details, card information or billing address.</p>
   <p>Tipping is entirely optional and <strong>unlocks nothing</strong>. Every feature of the app is free whether or not you tip. No purchase information is stored on our servers or linked to your use of the app.</p>
 
   <h2>8. Changes to This Policy</h2>
-  <p>If this privacy policy changes materially, we will update the "Last updated" date above. Continued use of the app after changes constitutes acceptance of the revised policy.</p>
+  <p>If this privacy policy changes materially, we will update the &ldquo;Last updated&rdquo; date above. Continued use of the app after changes means you accept the revised policy.</p>
 
   <h2>9. Contact</h2>
   <p>Questions or concerns about this privacy policy? Contact us at <a href="mailto:hello@vibecodigital.com">hello@vibecodigital.com</a>.</p>
