@@ -2,8 +2,10 @@ name = "vibecodigital"
 pages_build_output_dir = "."
 compatibility_date = "2026-05-30"
 
-# Feedback storage for the /preview mockup (isolated table in the existing DB).
+# Feedback storage for the /preview form: this site's OWN D1 database (POAM-030).
+# Do not bind vibeco-flow's database here. The read token is the Pages secret
+# FEEDBACK_READ_TOKEN (never in this public repo).
 [[d1_databases]]
 binding = "FEEDBACK_DB"
-database_name = "vibeco-flow"
-database_id = "835eef9f-db35-433e-9853-807984ffaf9a"
+database_name = "vibecodigital-site-feedback"
+database_id = "ca8f5fa3-85b3-46e8-995b-3d549256e491"
